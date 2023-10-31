@@ -1,0 +1,12 @@
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    flex-direction: column;
+}
+
+.title {
+    margin-bottom: 50px;
+    font-size: 40px;
+}

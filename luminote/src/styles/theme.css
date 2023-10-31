@@ -1,0 +1,20 @@
+:root {
+    /* Colors */
+    --primary-color: #007BFF;
+    --secondary-color: #003c7d;
+    --background-color: #fff;
+    --text-color: #333;
+    --link-color: #007BFF;
+    
+    /* Fonts */
+    --main-font: 'Arial', sans-serif;
+    
+    
+    /* Box Shadows */
+    --box-shadow: 0 0 4px 0 #0002;;
+    
+    /* Breakpoints */
+    --mobile-width: 480px;
+    --tablet-width: 768px;
+    --desktop-width: 1024px;
+}

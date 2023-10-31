@@ -1,0 +1,113 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main-container{
+    display: flex;
+    flex: 1;
+}
+
+.content {
+    flex: 1
+}
+
+.topbar {
+    background-color: #fcfcfc;
+    height: 75px;
+    z-index: 3;
+    box-shadow: var(--box-shadow);
+}
+
+.sidebar {
+    display: flex;
+    background-color: #f6f6f6;
+    box-sizing: border-box;
+    box-shadow: var(--box-shadow); 
+}
+
+.sidebar-actions {
+    float: left;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-right: #0001 solid 1px;
+    justify-content: space-between;
+    z-index: 2;
+}
+
+.sidebar-actions .action-buttons {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-actions .action-buttons:first-child {
+    margin-top: 16px;
+}
+
+.sidebar-actions .action-buttons>* {
+    margin-bottom: 16px;
+}
+
+
+.sidebar-content {   
+    display: flex;
+    min-width: 175px;
+    flex-direction: column;
+    padding: 20px 20px 0 20px;   
+}
+
+.sidebar-header{
+    margin-bottom: 20px;
+}
+
+.sidebar-header > .title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.sidebar-header > .info {
+    font-size: 14px;
+}
+
+.sidebar-note-explorer {
+    padding-top: 5px;
+}
+
+.sidebar-note-explorer .folder {
+    position: relative;
+}
+.sidebar-note-explorer .folder-vertical-line::before {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: 5px; 
+    width: .5px; 
+    height: calc(100% - 16px); 
+    background-color: #0001; 
+    transition: ease 0.2s;
+}
+   
+.sidebar-note-explorer .folder-vertical-line:hover::before {
+    background-color: rgba(0, 0, 0, 0.300);
+}
+.sidebar-note-explorer .folder > .folder-header {
+ margin: 10px 0;
+ display: flex;
+ cursor: pointer;
+}
+
+.sidebar-note-explorer .folder .note{
+    display: flex;
+    margin-left: 26px;
+}
+
+.sidebar-note-explorer .note-title {
+   margin-left: 4px;
+   line-height: 22px;
+}
+
+
+
