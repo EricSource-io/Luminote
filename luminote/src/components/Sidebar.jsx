@@ -64,7 +64,7 @@ function Sidebar ({ isOpen }) {
             marginLeft: `${depth * 20}px`,
         };
         return (
-            <div className={isExpanded ? ' folder folder-vertical-line' : ''} style={depthStyle}>
+            <div className={isExpanded ? 'folder folder-vertical-line' : 'folder'} style={depthStyle}>
 
                 <div className='folder-header' onClick={toggleFolder}>
                     <IconoirProvider
@@ -152,7 +152,7 @@ function Sidebar ({ isOpen }) {
                 </div>
 
 
-                <p>Explorer</p>
+                <b>Explorer</b>
                 <div className='sidebar-note-explorer'>
                     {folders.map((folder) => (
                         <Folder key={folder.id} folder={folder} />

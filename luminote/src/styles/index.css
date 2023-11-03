@@ -42,7 +42,7 @@ a:hover {
   color: var(--secondary-color);
 }
 
-.textInput {
+.text-input {
   width: 100%;
   padding: 5px 0;
   border: none; 
@@ -53,7 +53,7 @@ a:hover {
   transition: border-color 0.3s;
 }
 
-.textInput:focus {
+.text-input:focus {
   outline: none;
   border-color: #007BFF; 
 }
@@ -67,3 +67,4 @@ a:hover {
 .text-button:hover{
   background-color: #f6f6f6;
 }
+

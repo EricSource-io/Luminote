@@ -93,12 +93,12 @@
 .sidebar-note-explorer .folder-vertical-line:hover::before {
     background-color: rgba(0, 0, 0, 0.300);
 }
-.sidebar-note-explorer .folder > .folder-header {
- margin: 10px 0;
- display: flex;
- cursor: pointer;
-}
 
+.sidebar-note-explorer .folder > .folder-header {
+   display: flex;
+   cursor: pointer;
+   margin: 10px 0;
+}
 .sidebar-note-explorer .folder .note{
     display: flex;
     margin-left: 26px;

@@ -1,8 +1,50 @@
-#noteTitle {
+#note-title {
     margin-top: 20px;
     margin-left: 35px;
     height: 35px;
     font-size: 28px;
     max-width: 280px;
-    
+    position: absolute;
 }
+
+
+
+.textarea{
+   display: flex;
+   padding-top: 100px;
+   padding-left: 30px;
+}
+div.textarea-input {
+    order: 1;
+    border: 1px solid transparent;
+    padding: 8px;
+    min-height: 50px;
+    background-color: transparent;
+    outline: none;
+}
+
+.resize-handle{
+    order: 2;
+    width: 20px;
+    min-height: max-content;
+    cursor: ew-resize;
+}
+
+.textarea-input:focus,
+.textarea-input:hover,
+.resize-handle:hover + .textarea-input  {
+    border: solid 1px #c9c5c5b9;
+    border-right: double 6px #c9c5c5b9;
+}
+.textarea-input:empty::before {
+    content: "Type here...";
+    line-height: 20px;
+    color: #c9c5cc;
+}
+
+div.textarea-input:empty {
+    border: 1px solid transparent;
+}
+
+
+ 
