@@ -42,9 +42,10 @@ div.textarea-input {
     color: #c9c5cc;
 }
 
-div.textarea-input:empty {
+.textarea-input:empty {
     border: 1px solid transparent;
 }
+
 
 
  

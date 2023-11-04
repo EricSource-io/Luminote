@@ -5,6 +5,7 @@ import {
     IconoirProvider, MultiplePagesEmpty, CloudSync, ShareAndroid,
     UserCircle, GithubCircle, Settings,
     NavArrowRight, NavArrowDown, Page,
+    AddFolder, SortDown, ArrowUnionVertical, PageEdit
 } from 'iconoir-react';
 
 
@@ -49,7 +50,7 @@ function Sidebar ({ isOpen }) {
         return (<li key={note.id}>
 
             <a className='note' href={`/notes/${note.id}`}>
-                <Page width={'1.25rem'} height={'1.25rem'} strokeWidth={1.5}/>  
+                <Page width={'1.25rem'} height={'1.25rem'} strokeWidth={1.5} />
                 <div className='note-title '>{note.title}</div>
             </a>
         </li>)
@@ -149,10 +150,27 @@ function Sidebar ({ isOpen }) {
                 <div className='sidebar-header'>
                     <h3 className='title'>My Notes</h3>
                     <p className='info'>{noteCount} notes, {folderCount} folders</p>
+                    <div className='action-buttons'>
+                        <IconoirProvider
+                            iconProps={{
+                                color: '',
+                                strokeWidth: 1.5,
+                                width: '1.5rem',
+                                height: '1.5rem',
+                            }}
+                        >
+                            <PageEdit />
+                            <AddFolder />
+                            <SortDown />
+                            <ArrowUnionVertical />
+                        </IconoirProvider>
+                    </div>
+
+
                 </div>
 
 
-                <b>Explorer</b>
+                <b>Notes</b>
                 <div className='sidebar-note-explorer'>
                     {folders.map((folder) => (
                         <Folder key={folder.id} folder={folder} />
