@@ -4,13 +4,14 @@ import Sidebar from './Sidebar.jsx';
 import Topbar from './Topbar.jsx';
 import '../styles/layout.css';
 
+
 function Layout ({ children }) {
     const location = useLocation();
     const isOpen = location.pathname !== '/';
 
     return (
         <div className='app-container'>
-                 <Topbar />
+                <Topbar />
             <div className='main-container'>
                 <Sidebar isOpen={isOpen}/>
                 <div className='content'>

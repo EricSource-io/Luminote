@@ -1,5 +1,8 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+
 import '../styles/home.css';
+
+import Layout from '../components/Layout.jsx';
 
 function Home(){
     // Sample list of notes 
@@ -10,7 +13,14 @@ function Home(){
         {id: 'note-4', title: 'Note 4'},
     ];
 
+    const notebook = {
+        id: '40-142-142-124',
+        name: 'My-Notebook',
+        createdAt: '10-12-2021'
+    }
+
     return (
+        <Layout>
         <div className='home'>
             <h1 className='title'>Welcome to Luminote!</h1>
             <h4> The Best Note-Taking App, Period.</h4>
@@ -18,11 +28,12 @@ function Home(){
             <ul>
                 {notes.map((note) => (
                     <li key={note.id}>
-                        <a href={`/notes/${note.id}`}>{note.title}</a>
+                        <Link to={`/notebook/${notebook.id}/${note.id}`}>{note.title}</Link>
                     </li>
                 ))}
             </ul>
         </div>
+        </Layout>
     );
 }
 

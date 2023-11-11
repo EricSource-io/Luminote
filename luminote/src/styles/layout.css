@@ -112,8 +112,12 @@
 }
 .sidebar-note-explorer .folder .note{
     display: flex;
-    margin-left: 26px;
+    margin-left: 20px;
+    padding: 4px;
 }
+.sidebar-note-explorer .folder .note-selected {
+    
+} 
 
 .sidebar-note-explorer .note-title {
    margin-left: 4px;

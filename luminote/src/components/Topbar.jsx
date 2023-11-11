@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 function Topbar () {
     return (
         <div className='topbar'>
-            <button class='text-button'>Home</button>
-            <button class='text-button'>Insert</button>
-            <button class='text-button'>Draw</button>
-            <button class='text-button'>View</button>
+            <button className='text-button'>Home</button>
+            <button className='text-button'>Insert</button>
+            <button className='text-button'>Draw</button>
+            <button className='text-button'>View</button>
         </div>);
 }
 

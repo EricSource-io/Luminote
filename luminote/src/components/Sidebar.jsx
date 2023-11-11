@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import '../styles/layout.css';
 import {
     IconoirProvider, MultiplePagesEmpty, CloudSync, ShareAndroid,
@@ -9,54 +9,66 @@ import {
 } from 'iconoir-react';
 
 
-
 function Sidebar ({ isOpen }) {
 
-    const folders = [
-        {
-            id: 1,
-            name: 'Folder 1',
-            isExpanded: true,
-            notes: [
-                { id: 'note-1', title: 'Note 1' },
-                { id: 'note-2', title: 'Note 2' },
-            ],
-        },
-        {
-            id: 2,
-            name: 'Folder 2',
-            isExpanded: false,
-            notes: [
-                { id: 'note-3', title: 'Note 3' },
-                { id: 'note-4', title: 'Note 4' },
+    const { notebookId, noteId } = useParams();
+    const location = useLocation();
 
-            ],
-            folders: [
-                {
-                    id: 3,
-                    name: 'Subfolder 1',
-                    isExpanded: false,
-                    notes: [
-                        { id: 'note-3', title: 'Note 3' },
-                        { id: 'note-4', title: 'Note 4' },
-                    ],
-                },
-            ],
-        },
-    ];
+    useEffect(() => {
+        // Log the current route when the component mounts or when the route changes
+        console.log('Current Route:', location.pathname);
+    }, [location.pathname]);
 
-    const Note = ({ note }) => {
+    const notebook = {
+        id: notebookId,
+        createdAt: 0,
+        folder: [
+            {
+                id: 1,
+                name: 'Folder 1',
+                isExpanded: true,
+                notes: [
+                    { id: 'note-1', title: 'Note 1' },
+                    { id: 'note-2', title: 'Note 2' },
+                ],
+            },
+            {
+                id: 2,
+                name: 'Folder 2',
+                isExpanded: false,
+                notes: [
+                    { id: 'note-3', title: 'Note 3' },
+                    { id: 'note-4', title: 'Note 4' },
+
+                ],
+                folder: [
+                    {
+                        id: 3,
+                        name: 'Subfolder 1',
+                        isExpanded: false,
+                        notes: [
+                            { id: 'note-3', title: 'Note 3' },
+                            { id: 'note-4', title: 'Note 4' },
+                        ],
+                    },
+                ],
+            },
+        ]
+    }
+
+
+    const Note = ({ note, notebookId }) => {
+
+        const isSelected = notebookId == note.id;
 
         return (<li key={note.id}>
-
-            <a className='note' href={`/notes/${note.id}`}>
-                <Page width={'1.25rem'} height={'1.25rem'} strokeWidth={1.5} />
+            <Link className={isSelected ? 'note note-selected' : 'note'} to={`/notebook/${notebookId}/${note.id}`}>
                 <div className='note-title '>{note.title}</div>
-            </a>
+            </Link>
         </li>)
     }
 
-    const Folder = ({ folder, depth = 0 }) => {
+    const Folder = ({ folder, depth = 0, notebookId }) => {
         const [isExpanded, setIsExpanded] = useState(folder.isExpanded);
         const toggleFolder = () => {
             setIsExpanded(!isExpanded);
@@ -81,16 +93,17 @@ function Sidebar ({ isOpen }) {
                     {folder.name}
                 </div>
                 {isExpanded && (
-
                     <ul>
 
                         {
                             folder.notes.map((note) => (
-                                <Note note={note} />
+                                <div key={note.id}>
+                                    <Note note={note} notebookId={notebookId} />
+                                </div>
                             ))}
-                        {folder.folders && (folder.folders.map((subfolder) => (
+                        {folder.folder && (folder.folder.map((subfolder) => (
                             <li key={subfolder.id}>
-                                <Folder folder={subfolder} depth={depth + 1} />
+                                <Folder folder={subfolder} depth={depth + 1} notebookId={notebookId} />
                             </li>
                         )))}
                     </ul>
@@ -99,22 +112,27 @@ function Sidebar ({ isOpen }) {
         );
     };
 
-    function countFoldersAndNotes (folder) {
-        let folderCount = 1; // Start with 1 to count the current folder
-        let noteCount = folder.notes ? folder.notes.length : 0;
+    function countFolderAndNotes (folders) {
+        let folderCount = 0;
+        let noteCount = 0;
 
-        if (folder.folders) {
-            for (const subfolder of folder.folders) {
-                const { folderCount: subfolderCount, noteCount: subnoteCount } = countFoldersAndNotes(subfolder);
-                folderCount += subfolderCount;
-                noteCount += subnoteCount;
+        for (const folder of folders) {
+            folderCount += 1; // Count the current folder
+            noteCount += folder.notes ? folder.notes.length : 0;
+
+            if (folder.folder && folder.folder.length > 0) {
+                for (const subfolder of folder.folder) {
+                    const { folderCount: subfolderCount, noteCount: subnoteCount } = countFolderAndNotes([subfolder]);
+                    folderCount += subfolderCount;
+                    noteCount += subnoteCount;
+                }
             }
         }
 
         return { folderCount, noteCount };
     }
 
-    const { folderCount, noteCount } = countFoldersAndNotes({ folders });
+    const { folderCount, noteCount } = countFolderAndNotes(notebook.folder);
 
     return (
         <div className='sidebar'>
@@ -149,7 +167,7 @@ function Sidebar ({ isOpen }) {
             {isOpen && (<div className='sidebar-content'>
                 <div className='sidebar-header'>
                     <h3 className='title'>My Notes</h3>
-                    <p className='info'>{noteCount} notes, {folderCount} folders</p>
+                    <p className='info'>{noteCount} notes, {folderCount} folder</p>
                     <div className='action-buttons'>
                         <IconoirProvider
                             iconProps={{
@@ -172,8 +190,8 @@ function Sidebar ({ isOpen }) {
 
                 <b>Notes</b>
                 <div className='sidebar-note-explorer'>
-                    {folders.map((folder) => (
-                        <Folder key={folder.id} folder={folder} />
+                    {notebook.folder.map((folder) => (
+                        <Folder key={folder.id} folder={folder} notebookId={notebook.id} />
                     ))}
                 </div>
 
