@@ -18,6 +18,34 @@
     height: 75px;
     z-index: 3;
     box-shadow: var(--box-shadow);
+
+}
+
+.topbar-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.topbar-header > .topbar-left > button {
+    font-size: 14px;
+}
+.topbar-header > .topbar-left > .selected {
+    border-bottom: var(--primary-color) solid 2px;
+    font-weight: 600;
+}
+
+.topbar-header >.topbar-right {
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+.topbar-header >.topbar-right  > * {
+    padding-left: 16px;
+}
+
+
+.topbar-content {
+
 }
 
 .sidebar {
