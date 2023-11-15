@@ -1,8 +1,9 @@
-# Luminote
+# 🌟 Welcome to Luminote! 🚀
 
 Hey there! 👋 Welcome to Luminote, a project I'm tinkering with. It's a work in progress, and 
-I'm doing this solo, so bear with me. Here's the rundown on what's going on behind the scenes:
+I'm doing this solo, so bear with me.
 
+## Tech Stack:
 - **Electron.js**: Using Electron because it lets me throw together HTML, CSS, and JavaScript to
 make this thing run on Windows, maxOS, and Linux.
 
@@ -28,5 +29,5 @@ I'm working to make sure it runs smoothly.
 Luminote followss the [MIT License](https://github.com/EricSource2002/Luminote/blob/4ccc33e4420906f0abc4a5376e7a370b155c9252/LICENSE). Feel free to thinker around with it, tweak things, and share it with your buddies.
 Contributions? Absolutely! Check out the [contributing guidelines](https://github.com/EricSource-io/Luminote/blob/main/CONTRIBUTING.md) if you're up for it.
 
-Stay tuned for updates as Luminote evolves! 🚀
+**🚀 Stay tuned for updates as Luminote evolves! 🚀**
 
