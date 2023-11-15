@@ -18,10 +18,10 @@ Check out this preview of what Luminote looks like now:
 It's not super fancy yet, but we'll get there.
 
 ## Installation
-- Hang tight! Luminote, my solo dev adventure, is not ready to mingle with your desktop yet. 
+Hang tight! Luminote, my solo dev adventure, is not ready to mingle with your desktop yet. 
 
 ## Platform support
--  Luminote's aiming to be versatile. Whether you're on a Windows, Mac, or Linux machine,
+Luminote's aiming to be versatile. Whether you're on a Windows, Mac, or Linux machine,
 I'm working to make sure it runs smoothly. 
 
 ## License
