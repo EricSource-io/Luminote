@@ -1,7 +1,7 @@
 # 🌟 Welcome to Luminote! 🚀
 
-Hey there! 👋 Welcome to Luminote, a project I'm tinkering with. It's a work in progress, and 
-I'm doing this solo, so bear with me.
+Hey there! 👋 Welcome to Luminote, a versatile note-taking project that's a work in progress. 
+I'm tinkering with it solo, so bear with me.
 
 ## Tech Stack:
 - **Electron.js**: Using Electron because it lets me throw together HTML, CSS, and JavaScript to
@@ -10,8 +10,7 @@ make this thing run on Windows, maxOS, and Linux.
 - **Node.js**: Handling the behind-the-scenes stuff, Node.js gives me access to the file system
 and other nifty system resources using JavaScript.
 
-- **React.js**: The UI is built with React because it makes life easier. Think of it like building with
-LEGO blocks, but for software.
+- **React.js**: The UI is built with React because it makes life easier.
 
 ## Current State
 Check out this preview of what Luminote looks like now:
