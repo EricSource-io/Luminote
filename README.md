@@ -1,25 +1,34 @@
 # Luminote
 
-Luminote is an electron-based desktop application that leverages the power of C++ for performance-critical tasks. The tech stack for Luminote can be summarized as follows:
+Hey there! 👋 Welcome to Luminote, a project I'm tinkering with. It's a work in progress, and 
+I'm doing this solo, so bear with me. Here's the rundown on what's going on behind the scenes:
 
-- **Electron.js**: Luminote is built using Electron, a popular framework for building cross-platform desktop applications with web technologies such as HTML, CSS, and JavaScript.
+- **Electron.js**: Using Electron because it lets me throw together HTML, CSS, and JavaScript to
+make this thing run on Windows, maxOS, and Linux.
 
-- **Node.js**: Node.js is the server-side JavaScript runtime used by Electron. It allows Luminote to use JavaScript on the desktop and access the file system, network, and other system resources.
+- **Node.js**: Handling the behind-the-scenes stuff, Node.js gives me access to the file system
+and other nifty system resources using JavaScript.
 
-- **React.js**: Luminote's user interface is built using React, a popular front-end JavaScript library for building UIs. React allows for the creation of reusable components, making it easy to manage the complexity of the application's interface.
+- **React.js**: The UI is built with React because it makes life easier. Think of it like building with
+LEGO blocks, but for software.
 
 - **C++**: Luminote uses C++ for performance-critical tasks, such as parsing large files or running complex algorithms. C++ is a powerful language that can interact with the operating system at a low level, making it ideal for tasks that require high performance and low latency.
 
 ## Current State
-
+Check out this preview of what Luminote looks like now:
 ![Luminote preview](https://github.com/EricSource-io/Luminote/blob/main/preview.png)
+It's not super fancy yet, but we'll get there.
 
 ## Installation
-- 
+- Hang tight! Luminote, my solo dev adventure, is not ready to mingle with your desktop yet. 
 
 ## Platform support
-- 
+-  Luminote's aiming to be versatile. Whether you're on a Windows, Mac, or Linux machine,
+I'm working to make sure it runs smoothly. 
 
 ## License
-Luminote is licensed under the [MIT License](https://github.com/EricSource2002/Luminote/blob/4ccc33e4420906f0abc4a5376e7a370b155c9252/LICENSE). You are free to use, modify and distribute the software as you wish. We welcome contributions from the community. Please see our [contributing guidelines](https://github.com/EricSource-io/Luminote/blob/main/CONTRIBUTING.md) for more information.
+Luminote followss the [MIT License](https://github.com/EricSource2002/Luminote/blob/4ccc33e4420906f0abc4a5376e7a370b155c9252/LICENSE). Feel free to thinker around with it, tweak things, and share it with your buddies.
+Contributions? Absolutely! Check out the [contributing guidelines](https://github.com/EricSource-io/Luminote/blob/main/CONTRIBUTING.md) if you're up for it.
+
+Stay tuned for updates as Luminote evolves! 🚀
 
