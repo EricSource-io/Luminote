@@ -12,8 +12,6 @@ and other nifty system resources using JavaScript.
 - **React.js**: The UI is built with React because it makes life easier. Think of it like building with
 LEGO blocks, but for software.
 
-- **C++**: Luminote uses C++ for performance-critical tasks, such as parsing large files or running complex algorithms. C++ is a powerful language that can interact with the operating system at a low level, making it ideal for tasks that require high performance and low latency.
-
 ## Current State
 Check out this preview of what Luminote looks like now:
 ![Luminote preview](https://github.com/EricSource-io/Luminote/blob/main/preview.png)
