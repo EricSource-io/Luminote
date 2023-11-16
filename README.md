@@ -12,6 +12,9 @@ and other nifty system resources using JavaScript.
 
 - **React.js**: The UI is built with React because it makes life easier.
 
+- **Redux**: Manages application state efficiently, offering a centralized store
+for streamlined data flow and state updates. 
+
 ## Current State
 Check out this preview of what Luminote looks like now:
 ![Luminote preview](https://github.com/EricSource-io/Luminote/blob/main/preview.png)
