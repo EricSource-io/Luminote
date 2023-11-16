@@ -7,13 +7,24 @@
     position: absolute;
 }
 
-
-
-.textarea{
-   display: flex;
-   padding-top: 100px;
-   padding-left: 30px;
+.textarea {
+    position: absolute;
+    flex-direction: column;
+    border: solid 1px transparent;
+    border-top: solid 6px transparent;
 }
+
+.textarea>.drag-handle {
+    width: auto;
+    height: 10px;
+    cursor: grab;
+}
+
+.textarea>.resize-and-input {
+    display: flex;
+    width: 100%;
+}
+
 div.textarea-input {
     order: 1;
     border: 1px solid transparent;
@@ -21,21 +32,24 @@ div.textarea-input {
     min-height: 50px;
     background-color: transparent;
     outline: none;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    width: 100%;
 }
 
-.resize-handle{
+.resize-handle {
     order: 2;
-    width: 20px;
+    min-width: 20px;
     min-height: max-content;
     cursor: ew-resize;
 }
 
-.textarea-input:focus,
-.textarea-input:hover,
-.resize-handle:hover + .textarea-input  {
+.textarea.active  {
     border: solid 1px #c9c5c5b9;
     border-right: double 6px #c9c5c5b9;
+    border-top: double 6px #c9c5c5b9;
 }
+
 .textarea-input:empty::before {
     content: "Type here...";
     line-height: 20px;
@@ -45,7 +59,3 @@ div.textarea-input {
 .textarea-input:empty {
     border: 1px solid transparent;
 }
-
-
-
- 
