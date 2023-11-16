@@ -1,4 +1,4 @@
-# 🌟 Welcome to Luminote! 🚀
+# Welcome to Luminote!
 
 Hey there! 👋 Welcome to Luminote, a versatile note-taking project that's a work in progress. 
 I'm tinkering with it solo, so bear with me.
