@@ -134,7 +134,7 @@ const ResizableTextarea = () => {
       {/* Copy*/}
       {isDragging && (
         <div
-          className={`textarea gray-copie ${isHovered || isWriting ? 'active' : ''}`}
+          className='textarea gray-copie active'
           style={{
             left: resizableTextareaRef.current ? resizableTextareaRef.current.style.left : '0px',
             top: resizableTextareaRef.current ? resizableTextareaRef.current.style.top : '0px',
