@@ -1,14 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 const ResizableTextarea = () => {
   const resizableTextareaRef = useRef(null);
+  const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0, left: 0, top: 0 });
   const minTextareaWidth = 100;
   const [isHovered, setIsHovered] = useState(false);
   const [isWriting, setIsWriting] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [copiedStyle, setCopiedStyle] = useState({});
+
+  useEffect(() => {
+    const canvasElement = document.querySelector('.canvas');
+    if (canvasElement) {
+      const { width, height, left, top } = canvasElement.getBoundingClientRect();
+      setCanvasDimensions({ width, height, left, top });
+    }
+  }, []);
 
   const handleMouseDown = (e, action) => {
     e.preventDefault(); // Prevents text selection during drag
@@ -18,21 +26,35 @@ const ResizableTextarea = () => {
     resizableTextareaRef.current.querySelector('.textarea-input').blur();
 
     if (action === 'drag') {
-
       const initialMouseX = e.clientX;
       const initialMouseY = e.clientY;
 
-      setDragOffset({
-        x: initialMouseX - resizableTextareaRef.current.getBoundingClientRect().left,
-        y: initialMouseY - resizableTextareaRef.current.getBoundingClientRect().top,
-      });
+      const canvasOffset = {
+        left: canvasDimensions.left || 0,
+        top: canvasDimensions.top || 0
+      }
+
+      const dragOffset = {
+        x: initialMouseX - resizableTextareaRef.current.getBoundingClientRect().left + canvasOffset.left,
+        y: initialMouseY - resizableTextareaRef.current.getBoundingClientRect().top + canvasOffset.top
+      }
 
       const handleMouseMove = (e) => {
         const newX = e.clientX - dragOffset.x;
         const newY = e.clientY - dragOffset.y;
 
-        resizableTextareaRef.current.style.left = `${newX}px`;
-        resizableTextareaRef.current.style.top = `${newY}px`;
+        // Calculate the maximum allowable position based on the canvas size
+        const maxX = canvasDimensions.width - resizableTextareaRef.current.clientWidth;
+        const maxY = canvasDimensions.height - resizableTextareaRef.current.clientHeight;
+
+
+        // Update the position within the canvas boundaries
+        const newLeft = Math.min(Math.max(0, newX), maxX);
+        const newTop = Math.min(Math.max(0, newY), maxY);
+
+        resizableTextareaRef.current.style.left = `${newLeft}px`;
+        resizableTextareaRef.current.style.top = `${newTop}px`;
+
         resizableTextareaRef.current.style.background = 'lightgray';
       };
 
@@ -95,16 +117,14 @@ const ResizableTextarea = () => {
   };
 
   const handleInput = (e) => {
-
     setCopiedStyle({
-      width: resizableTextareaRef.current ? resizableTextareaRef.current.style.width : '0px',
       text: e.target.innerText,
     });
-
   };
 
   return (
     <>
+
       {/* Original ResizableTextarea */}
       <div
         className={`textarea ${isHovered || isWriting ? 'active' : ''}`}
@@ -131,23 +151,22 @@ const ResizableTextarea = () => {
         </div>
       </div>
 
-      {/* Copy*/}
+      {/* Copy */}
       {isDragging && (
         <div
           className='textarea gray-copie active'
           style={{
             left: resizableTextareaRef.current ? resizableTextareaRef.current.style.left : '0px',
             top: resizableTextareaRef.current ? resizableTextareaRef.current.style.top : '0px',
-            width: copiedStyle.width,
+            width: resizableTextareaRef.current.style.width,
           }}
         >
-          <div className='drag-handle' onMouseDown={(e) => handleMouseDown(e, 'drag')} />
+          <div className='drag-handle' />
           <div className='resize-and-input'>
             <div
-              className={`resize-handle ${isDragging ? 'gray' : ''}`}
-              onMouseDown={(e) => handleMouseDown(e, 'resize')}
+              className='resize-handle'
             />
-            <div className='textarea-input'>
+            <div className='textarea-input' style={{ whiteSpace: 'pre-line' }}>
               {copiedStyle.text}
             </div>
           </div>

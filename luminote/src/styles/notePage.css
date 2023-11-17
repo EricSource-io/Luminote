@@ -1,10 +1,21 @@
+.note-page{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
 #note-title {
     margin-top: 20px;
     margin-left: 35px;
     height: 35px;
     font-size: 28px;
     max-width: 280px;
-    position: absolute;
+}
+
+.canvas{
+    height: 100%;
+    width: 100%;
+    position: relative;
 }
 
 .textarea {
