@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-const ResizableTextarea = () => {
+const ResizableTextarea = ({initialPosition}) => {
   const resizableTextareaRef = useRef(null);
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0, left: 0, top: 0 });
   const minTextareaWidth = 100;
@@ -16,7 +16,11 @@ const ResizableTextarea = () => {
       const { width, height, left, top } = canvasElement.getBoundingClientRect();
       setCanvasDimensions({ width, height, left, top });
     }
-  }, []);
+    if (initialPosition) {
+      resizableTextareaRef.current.style.left = `${initialPosition.left}px`;
+      resizableTextareaRef.current.style.top = `${initialPosition.top}px`;
+    }
+  }, [initialPosition]);
 
   const handleMouseDown = (e, action) => {
     e.preventDefault(); // Prevents text selection during drag
