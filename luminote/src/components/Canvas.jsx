@@ -23,9 +23,10 @@ function Canvas() {
       if (!isInsideExistingTextArea) {
         // Create a new TextArea at the click position
         const newTextArea = {
-          left: clickX,
-          top: clickY,
-        };
+            left: clickX,
+            top: clickY,
+            width: 150, 
+          };
 
         setTextAreas((prevTextAreas) => [...prevTextAreas, newTextArea]);
       }
@@ -44,7 +45,7 @@ function Canvas() {
   return (
     <div className='canvas' ref={canvasRef}>
       {textAreas.map((area, index) => (
-        <TextArea key={index} initialPosition={area} />
+        <TextArea key={index} initialArea={area} />
       ))}
     </div>
   );
