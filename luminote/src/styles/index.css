@@ -2,7 +2,7 @@ body,
 h1,
 h2,
 h3,
-h4, 
+h4,
 p,
 ul {
   margin: 0;
@@ -46,26 +46,29 @@ a:hover {
 .text-input {
   width: 100%;
   padding: 5px 0;
-  border: none; 
-  border-bottom: 2px solid #333; 
-  background: transparent; 
+  border: none;
+  border-bottom: 2px solid #333;
+  background: transparent;
   font-size: 16px;
   color: #333;
   transition: border-color 0.3s;
 }
 
-.text-input:focus {
+input:focus {
   outline: none;
-  border-color: #007BFF; 
 }
 
-.text-button{
- padding: 10px 16px;
- border: none;
- background-color: transparent;
- cursor: pointer;
+.text-input:focus {
+  border-color: #007BFF;
 }
-.text-button:hover{
+
+.text-button {
+  padding: 10px 16px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.text-button:hover {
   background-color: #f6f6f6;
 }
-
