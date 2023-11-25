@@ -14,12 +14,12 @@ function Topbar () {
             <div className='action-section'>
                 <IconoirProvider
                     iconProps={{
-                        strokeWidth: 2,
+                        strokeWidth: 1.5,
                         width: '1.5rem',
                         height: '1.5rem',
                     }}
                 >
-                    <button className='icon-button'> <Bold /></button>
+                    <button className='icon-button'> <Bold strokeWidth={2}/></button>
                     <button className='icon-button'> <Italic /></button>
                     <button className='icon-button'> <Underline /></button>
                 </IconoirProvider>

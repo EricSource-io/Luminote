@@ -6,6 +6,12 @@
     --text-color: #333;
     --link-color: #007BFF;
     
+
+    /* Background Colors */
+    --topbar-background: #f0f0f0;
+    --sidebar-background: #f0f0f0;
+    --canvas-background: #eee;
+
     /* Fonts */
     --main-font: 'Arial', sans-serif;
     

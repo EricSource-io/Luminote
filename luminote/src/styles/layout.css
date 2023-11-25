@@ -14,7 +14,7 @@
 }
 
 .topbar {
-    background-color: #fcfcfc;
+    background-color:var(--topbar-background);
     height: 85px;
     z-index: 3;
     box-shadow: var(--box-shadow);
@@ -80,6 +80,7 @@
     border: transparent 0px solid;
     height: 100%;
     width: 40px;
+    cursor: pointer;
 }
 
 .font-settings>.action-section>button.icon-button:hover {
@@ -88,7 +89,7 @@
 
 .sidebar {
     display: flex;
-    background-color: #f6f6f6;
+    background-color: var(--sidebar-background);
     box-sizing: border-box;
     box-shadow: var(--box-shadow);
 }

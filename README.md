@@ -18,6 +18,7 @@ for streamlined data flow and state updates.
 ## Current State
 Check out this preview of what Luminote looks like now:
 ![Luminote preview](https://github.com/EricSource-io/Luminote/blob/main/preview.png)
+![Luminote preview](https://github.com/EricSource-io/Luminote/blob/main/preview-gruvbox.png)
 It's not super fancy yet, but we'll get there.
 
 ## Installation
