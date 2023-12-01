@@ -28,11 +28,12 @@
 
 .topbar-header>.topbar-left>button {
     font-size: 14px;
+    border-bottom: transparent solid 2px;
 }
 
 .topbar-header>.topbar-left>.selected {
-    border-bottom: var(--primary-color) solid 2px;
-    font-weight: 600;
+    border-bottom: var(--primary-color) solid 2px;  
+    color: var(--primary-color);
 }
 
 .topbar-header>.topbar-right {
