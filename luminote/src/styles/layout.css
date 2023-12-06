@@ -15,10 +15,11 @@
 
 .topbar {
     background-color:var(--topbar-background);
-    height: 85px;
+    min-height: 85px;
     z-index: 3;
     box-shadow: var(--box-shadow);
     display: grid;
+
 }
 
 .topbar-header {

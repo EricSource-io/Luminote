@@ -7,7 +7,7 @@
 
 #note-title {
     margin-top: 20px;
-    margin-left: 35px;
+    margin-left: 30px;
     height: 35px;
     font-size: 28px;
     max-width: 280px;
@@ -17,4 +17,15 @@
     height: 100%;
     width: 100%;
     position: relative;
+}
+
+.canvas > div.note-edit {
+    padding-top: 20px;
+    padding-left: 30px;
+    font-size: 18px;
+    
+}
+
+.canvas > div.note-edit:focus {
+    outline: none;
 }
