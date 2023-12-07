@@ -1,41 +1,84 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
-
-function Canvas () {
+function Canvas() {
+  // Ref to the contentEditable div
   const canvasRef = useRef(null);
 
+  // State to keep track of the selected range
+  const [selectedRange, setSelectedRange] = useState(null);
+
+  // Function to handle the "Bold" button click
+  const handleBoldClick = () => {
+    applyStyle('fontWeight', 'bold');
+  };
+
+  // Function to handle color change buttons
+  const handleColorChange = (color) => {
+    applyStyle('color', color);
+  };
+
+  // Function to apply styles to the selected range
+  const applyStyle = (style, value) => {
+    if (!selectedRange) return;
+
+    // Create a new span element with the specified style
+    const span = document.createElement('span');
+    span.style[style] = value;
+
+    // Create a new range and surround the contents with the span
+    const newRange = selectedRange.cloneRange();
+    newRange.surroundContents(span);
+
+    // Remove the original selection
+    selectedRange.deleteContents();
+
+    // Insert the new range with the styled span
+    selectedRange.insertNode(span);
+
+    // Clear the selection
+    setSelectedRange(null);
+  };
+
+  // Function to handle selection change events
+  const handleSelectionChange = () => {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+      // Update the selectedRange state with the current selection range
+      setSelectedRange(selection.getRangeAt(0));
+    }
+  };
+
+  // Effect to add event listeners for selection change events
+  useEffect(() => {
+    const canvas = canvasRef.current;
+
+    if (canvas) {
+      canvas.addEventListener('mouseup', handleSelectionChange);
+      canvas.addEventListener('keyup', handleSelectionChange);
+
+      // Cleanup: Remove event listeners when the component unmounts
+      return () => {
+        canvas.removeEventListener('mouseup', handleSelectionChange);
+        canvas.removeEventListener('keyup', handleSelectionChange);
+      };
+    }
+  }, []);
+
+  // JSX structure for the Canvas component
   return (
     <div className='canvas' ref={canvasRef}>
+      <div className='text-editing-buttons'>
+        {/* Button to apply bold style */}
+        <button onClick={handleBoldClick}>Bold</button>
+
+        {/* Buttons to change text color */}
+        <button onClick={() => handleColorChange('red')}>Red Color</button>
+        <button onClick={() => handleColorChange('blue')}>Blue Color</button>
+      </div>
+
+      {/* Editable div for text content */}
       <div className='note-edit' contentEditable>
-        Mergesort is a popular and efficient sorting algorithm that follows the divide-and-conquer paradigm. <br />
-        It was invented by John von Neumann in 1945 and has since become a standard sorting <br />
-        algorithm due to its stable performance and reliability.<br />
-        The basic idea behind mergesort is to divide the unsorted list into n sub-lists, <br />
-        each containing one element (trivially sorted), <br />
-        and then repeatedly merge sub-lists to produce new sorted <br />
-        sub-lists until there is only one sub-list remaining, which is the sorted list.<br />
-        <br />
-        The algorithm consists of two main steps:<br />
-        <br />
-        1. Divide: The unsorted list is divided into two halves recursively until each sub-list contains only one element.<br />
-        <br />
-        2. Merge: The sorted sub-lists are merged back together in a pairwise fashion to produce new sorted sub-lists until<br />
-        only one sub-list remains, which is the fully sorted list.<br />
-        <br />
-        One key advantage of mergesort is its stability. <br />
-        Stability in sorting algorithms means that when two elements have equal keys, <br />
-        their relative order in the sorted output is the same as in the original input. Mergesort<br />
-        achieves stability through its careful merging process.<br />
-        <br />
-        The time complexity of mergesort is O(n log n), <br />
-        making it an efficient algorithm for large datasets. <br />
-        The space complexity, however, is O(n), as it requires additional space for the merging process.<br />
-        This makes mergesort less memory-efficient compared to some in-place sorting algorithms. <br />
-        There are variations of mergesort, such as bottom-up mergesort, which optimizes space usage.<br />
-        <br />
-        In summary, mergesort is a reliable and efficient sorting algorithm with a time complexity of O(n log n) <br />
-        and stable performance. It is often used in scenarios where a stable and predictable sorting algorithm is needed,<br />
-        and the available memory space allows for the additional space complexity.
+        {/* Text content goes here */}
       </div>
     </div>
   );

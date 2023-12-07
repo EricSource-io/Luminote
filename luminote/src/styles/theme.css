@@ -4,13 +4,15 @@
     --secondary-color: #003c7d;
     --background-color: #fff;
     --text-color: #333;
-    --link-color: #007BFF;
-    
+    --link-color: #007BFF;    
 
     /* Background Colors */
     --topbar-background: #fcfcfc;
     --sidebar-background: #f0f0f0;
     --canvas-background: #eee;
+
+    /**/
+    --sidebar-note-selected-color: #d4d4d475;
 
     /* Fonts */
     --main-font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";

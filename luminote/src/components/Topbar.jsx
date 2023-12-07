@@ -4,12 +4,15 @@ import {
     IconoirProvider, Bell, MoreHoriz, Enlarge, PasteClipboard, Bold, Italic, Underline
 } from 'iconoir-react';
 function Topbar () {
+    // State to track the active tab
     const [activeTab, setActiveTab] = useState('home');
 
+    // Function to handle tab change
     const handleTabChange = (tab) => {
         setActiveTab(tab);
     };
 
+    // Function to render content based on the active tab
     const renderContent = () => {
         switch (activeTab) {
             case 'home':
@@ -59,8 +62,10 @@ function Topbar () {
 
     return (
         <div className='topbar'>
+            {/* Topbar header */}
             <div className='topbar-header'>
                 <div className='topbar-left'>
+                    {/* Navigation buttons */}
                     <button className={`text-button ${activeTab === 'home' ? 'selected' : ''}`} onClick={() => handleTabChange('home')}>
                         Home
                     </button>
@@ -75,6 +80,7 @@ function Topbar () {
                     </button>
                 </div>
                 <div className='topbar-right'>
+                    {/* Icon buttons on the right */}
                     <IconoirProvider
                         iconProps={{
                             strokeWidth: 2,
@@ -88,6 +94,7 @@ function Topbar () {
                     </IconoirProvider>
                 </div>
             </div>
+            {/* Topbar content */}
             <div className='topbar-content'>
                 <div className='topbar-content'>{renderContent()}</div>
             </div>

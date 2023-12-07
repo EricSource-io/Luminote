@@ -8,17 +8,19 @@ import {
     AddFolder, SortDown, ArrowUnionVertical, PageEdit
 } from 'iconoir-react';
 
-
+// Sidebar component
 function Sidebar ({ isOpen }) {
-
+     // Extracting notebookId and noteId from URL params
     const { notebookId, noteId } = useParams();
     const location = useLocation();
 
+     // Effect to log the current route when it changes
     useEffect(() => {
         // Log the current route when the component mounts or when the route changes
         console.log('Current Route:', location.pathname);
     }, [location.pathname]);
 
+    // Sample notebook data
     const notebook = {
         id: notebookId,
         createdAt: 0,
@@ -56,11 +58,9 @@ function Sidebar ({ isOpen }) {
         ]
     }
 
-
+    // Note component
     const Note = ({ note, notebookId }) => {
-
-        const isSelected = notebookId == note.id;
-
+        const isSelected = noteId == note.id;
         return (<li key={note.id}>
             <Link className={isSelected ? 'note note-selected' : 'note'} to={`/notebook/${notebookId}/${note.id}`}>
                 <div className='note-title '>{note.title}</div>
@@ -68,14 +68,19 @@ function Sidebar ({ isOpen }) {
         </li>)
     }
 
+    // Folder component
     const Folder = ({ folder, depth = 0, notebookId }) => {
         const [isExpanded, setIsExpanded] = useState(folder.isExpanded);
+
+        // Function to toggle folder expansion
         const toggleFolder = () => {
             setIsExpanded(!isExpanded);
         };
+
         const depthStyle = {
             marginLeft: `${depth * 20}px`,
         };
+
         return (
             <div className={isExpanded ? 'folder folder-vertical-line' : 'folder'} style={depthStyle}>
 
@@ -112,6 +117,7 @@ function Sidebar ({ isOpen }) {
         );
     };
 
+    // Function to count folders and notes
     function countFolderAndNotes (folders) {
         let folderCount = 0;
         let noteCount = 0;
@@ -132,6 +138,7 @@ function Sidebar ({ isOpen }) {
         return { folderCount, noteCount };
     }
 
+     // Destructuring folderCount and noteCount from the countFolderAndNotes result
     const { folderCount, noteCount } = countFolderAndNotes(notebook.folder);
 
     return (
