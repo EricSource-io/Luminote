@@ -14,7 +14,7 @@
 }
 
 .topbar {
-    background-color:var(--topbar-background);
+    background-color: var(--topbar-background);
     min-height: 85px;
     z-index: 3;
     box-shadow: var(--box-shadow);
@@ -33,7 +33,7 @@
 }
 
 .topbar-header>.topbar-left>.selected {
-    border-bottom: var(--primary-color) solid 2px;  
+    border-bottom: var(--primary-color) solid 2px;
     color: var(--primary-color);
 }
 
@@ -106,20 +106,29 @@
     z-index: 2;
 }
 
+.sidebar-actions .action-buttons>* {
+    padding: 12px 16px;
+}
+
 .sidebar-actions .action-buttons {
-    padding: 0 20px;
     display: flex;
     flex-direction: column;
 }
 
-.sidebar-actions .action-buttons:first-child {
-    margin-top: 16px;
+.sidebar-actions .action-buttons * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.sidebar-actions .action-buttons>* {
-    margin-bottom: 16px;
+.sidebar-actions .action-buttons>*:hover {
+    background-color: var(--sidebar-note-selected-color);
+    color: var(--primary-color);
 }
 
+.sidebar-actions .action-buttons .selected {
+    border-left: var(--primary-color) solid 3px;
+}
 
 .sidebar-content {
     display: flex;
@@ -152,6 +161,12 @@
     color: var(--primary-color);
     transition: ease-in-out 0.15s;
 }
+
+.sidebar-header>.action-buttons>, .selected {
+    background-color: red;
+    height: 40px;
+}
+
 
 .sidebar-note-explorer {
     padding-top: 5px;

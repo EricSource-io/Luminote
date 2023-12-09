@@ -10,11 +10,11 @@ import {
 
 // Sidebar component
 function Sidebar ({ isOpen }) {
-     // Extracting notebookId and noteId from URL params
+    // Extracting notebookId and noteId from URL params
     const { notebookId, noteId } = useParams();
     const location = useLocation();
 
-     // Effect to log the current route when it changes
+    // Effect to log the current route when it changes
     useEffect(() => {
         // Log the current route when the component mounts or when the route changes
         console.log('Current Route:', location.pathname);
@@ -138,7 +138,7 @@ function Sidebar ({ isOpen }) {
         return { folderCount, noteCount };
     }
 
-     // Destructuring folderCount and noteCount from the countFolderAndNotes result
+    // Destructuring folderCount and noteCount from the countFolderAndNotes result
     const { folderCount, noteCount } = countFolderAndNotes(notebook.folder);
 
     return (
@@ -153,7 +153,7 @@ function Sidebar ({ isOpen }) {
                     }}
                 >
                     <div className='action-buttons'>
-                        <Link to="/">
+                        <Link to="/" className='selected'>
                             <MultiplePagesEmpty />
                         </Link>
                         <Link to="/">
@@ -163,9 +163,15 @@ function Sidebar ({ isOpen }) {
                             <CloudSync /></Link>
                     </div>
                     <div className='action-buttons' >
-                        <UserCircle />
-                        <GithubCircle />
-                        <Settings />
+                        <Link to="/">
+                            <UserCircle />
+                        </Link>
+                        <Link to="/">
+                            <GithubCircle /> 
+                        </Link>
+                        <Link to="/">
+                            <Settings /> 
+                        </Link>
                     </div>
                 </IconoirProvider>
 
