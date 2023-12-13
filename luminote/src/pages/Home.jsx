@@ -14,8 +14,8 @@ function Home(){
     ];
 
     const notebook = {
-        id: '40-142-142-124',
-        name: 'My-Notebook',
+        id: 'My-Notebook',
+        name: 'My Notebook',
         createdAt: '10-12-2021'
     }
 

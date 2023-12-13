@@ -198,13 +198,18 @@
     margin: 10px 0;
 }
 
-.sidebar-note-explorer .folder .note {
+.sidebar-note-explorer .folder .note,
+.sidebar-note-explorer > .notes .note {
     display: flex;
     margin-left: 20px;
     padding: 4px;
 }
+.sidebar-note-explorer > .notes .note {
+    margin: 0;
+}
 
-.sidebar-note-explorer .folder .note-selected {
+.sidebar-note-explorer .note-selected
+{
     background-color: var(--sidebar-note-selected-color);
     border-radius: 4px;
 }
