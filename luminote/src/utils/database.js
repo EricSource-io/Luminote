@@ -19,17 +19,17 @@ const exampleNotes = {
             notes: [
                 {
                     id: "nATF224",
-                    title: "Todo!"
+                    title: "Todo1!"
                 },
                 {
                     id: "nATA124",
-                    title: "Todo!"
+                    title: "Todo2!"
                 }
             ]
         },
         {
             id: "fH232323",
-            name: "Folder 2", // Changed the name to "Folder 2"
+            name: "Folder 2", 
             notes: [
                 {
                     id: "nAT314",
@@ -38,15 +38,25 @@ const exampleNotes = {
             ],
             folders: [
                 {
-                id: "fH51255",
-                name: "SubFolder 1",
-                notes: [
-                    {
-                        id: "nA23124",
-                        title: "Test!"
-                    }
-                ]
-            }
+                    id: "fH5145",
+                    name: "SubFolder 1",
+                    notes: [
+                        {
+                            id: "nA23124",
+                            title: "Test!"
+                        }
+                    ]
+                },
+                {
+                    id: "f31455",
+                    name: "SubFolder 2",
+                    notes: [
+                        {
+                            id: "n123124",
+                            title: "Test2!"
+                        }
+                    ]
+                }
             ],
         },
     ]
@@ -62,7 +72,7 @@ export function getNotebookDataById (notebookId) {
     return notebook;
 }
 
-export function getNoteById(notebookId, noteId) {
+export function getNoteById (notebookId, noteId) {
     const findNote = (folder) => {
         if (folder.notes) {
             const note = folder.notes.find((n) => n.id === noteId);

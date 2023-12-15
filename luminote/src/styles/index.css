@@ -53,7 +53,7 @@ a:hover {
   color: #333;
   transition: border-color 0.3s;
 }
-
+select:focus,
 input:focus {
   outline: none;
 }

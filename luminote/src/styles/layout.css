@@ -43,7 +43,7 @@
 }
 
 .topbar-header>.topbar-right>* {
-    padding-left: 16px;
+    padding-left: 30px;
 }
 
 .topbar-content {
@@ -53,6 +53,7 @@
 
 .font-settings {
     display: flex;
+    margin-left: 80px;
 }
 
 .font-settings>.input-section {
@@ -62,19 +63,21 @@
     align-items: center;
 }
 
-.font-settings>.input-section>input {
+.font-settings>.input-section>input,
+.font-settings>.input-section select.font-selector  {
     border: solid #0002 1px;
     font-size: 14px;
-    height: 20px;
+    height: 25px;
+    box-sizing: border-box;
 }
 
-.font-settings>.input-section input.font-name {
-    max-width: 100px;
+.font-settings>.input-section select.font-selector {
+    max-width: 150px;
 }
 
 .font-settings>.input-section input.font-size {
     max-width: 60px;
-    border-left: transparent;
+    border-left: none;
 }
 
 .font-settings>.action-section>button.icon-button {

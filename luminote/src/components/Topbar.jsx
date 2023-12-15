@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import {
     IconoirProvider, Bell, MoreHoriz, Enlarge, PasteClipboard, Bold, Italic, Underline
 } from 'iconoir-react';
+import FontSelector from './FontSelector';
+
 function Topbar () {
     // State to track the active tab
     const [activeTab, setActiveTab] = useState('home');
@@ -21,7 +23,7 @@ function Topbar () {
                         <PasteClipboard />
                         <div className='font-settings'>
                             <div className='input-section'>
-                                <input className='font-name' value={'Calibri'} />
+                                <FontSelector />
                                 <input className='font-size' value={'14'} />
                             </div>
                             <div className='action-section'>

@@ -88,23 +88,29 @@ function Sidebar ({ isOpen }) {
 
     // Function to count folders and notes
     function countFolderAndNotes (folders, notes) {
-        let folderCount = 0;
-        let noteCount = 0;
+        // Initialize counts with the number of folders and notes at the current level
+        let folderCount = folders.length;
+        let noteCount = notes.length;
 
-        noteCount = notes.length;
-
-
+        // Iterate through each folder at the current level
         for (const folder of folders) {
-            folderCount += 1; // Count the current folder
-            noteCount += folder.notes ? folder.notes.length : 0;
+            // Check if the folder has subfolders
+            if (folder.folders) {
+                // Recursively call the function for subfolders and get their counts
+                const { folderCount: subFolderCount, noteCount: subNoteCount } = countFolderAndNotes(folder.folders, folder.notes);
 
-            if (folder.folder && folder.folder.length > 0) {
-                const { folderCount: subfolderCount, noteCount: subnoteCount } = countFolderAndNotes(folder.folder);
-                folderCount += subfolderCount;
-                noteCount += subnoteCount;
+                // Update counts with the counts from subfolders
+                folderCount += subFolderCount;
+
+                // Add notes from subfolders
+                noteCount += subNoteCount;
+            } else {
+                // If there are no subfolders, add notes at the current folder level
+                noteCount += folder.notes.length;
             }
         }
 
+        // Return the final counts for folders and notes at the current level
         return { folderCount, noteCount };
     }
 

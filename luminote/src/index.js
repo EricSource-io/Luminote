@@ -22,6 +22,11 @@ const App = () => {
                 element={<Home />}
               />
               <Route
+                path='notebook/:notebookId'
+                element={<NotePage />}
+
+              />
+               <Route
                 path='notebook/:notebookId/:noteId'
                 element={<NotePage />}
 
