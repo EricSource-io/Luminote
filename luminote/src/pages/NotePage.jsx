@@ -33,7 +33,7 @@ function NotePage () {
     }, [notebookId, noteId]);
 
 
-    // If data is not loaded
+    // If note is not loaded
     if (!isLoaded) {
         return (
             <Layout>
@@ -47,7 +47,7 @@ function NotePage () {
         );
     }
 
-    // If data is loaded
+    // If note is loaded
     return (
         <Layout>
             <div className='note-page'>
