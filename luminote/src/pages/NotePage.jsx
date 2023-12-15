@@ -41,7 +41,11 @@ function NotePage () {
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '50vh', fontSize: '18px' }}>
                         <i>Silence is golden, but notes are like the confetti of thoughts.</i><br />
                         <i>Go ahead, break the silence, and let the note-taking fiesta begin!</i>
+                        <br/>
+                        <br/>
+                        <button >Create a Note!</button>
                     </div>
+                    
                 </div>
             </Layout>
         );

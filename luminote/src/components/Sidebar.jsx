@@ -14,6 +14,8 @@ import '../styles/layout.css';
 
 // Sidebar component
 function Sidebar ({ isOpen }) {
+    const [expandedFolders, setExpandedFolders] = useState({});
+
     // Extracting notebookId and noteId from URL params
     const { notebookId, noteId } = useParams();
     const location = useLocation();
@@ -66,176 +68,173 @@ function Sidebar ({ isOpen }) {
     }
 
     // Folder component
-    const Folder = ({ folder, depth = 0, notebookId, handleNoteMove }) => {
-        // Set up local storage for storing  folder expansion state (Just for testing)
-        const localStorageKey = `folder-${folder.id}-isExpanded`;
-        const storedIsExpanded = localStorage.getItem(localStorageKey);
-        const [isExpanded, setIsExpanded] = useState(storedIsExpanded === 'true' || folder.isExpanded);
-    
-    // Function to toggle folder expansion
-    const toggleFolder = () => {
-        const newIsExpanded = !isExpanded;
-        setIsExpanded(newIsExpanded);
-        localStorage.setItem(localStorageKey, newIsExpanded.toString());
-    };
+    const Folder = ({ folder, depth = 0, notebookId, handleNoteMove, expandedFolders, setExpandedFolders }) => {
 
-    // Set up drop functionality for handling note movement
-    const [, drop] = useDrop({
-        accept: 'NOTE',
-        drop: (item) => handleNoteMove(item.id, item.originalFolderId, folder.id)
-    });
+        const toggleFolder = () => {
+            const newIsExpanded = !expandedFolders[folder.id];
+            setExpandedFolders({ ...expandedFolders, [folder.id]: newIsExpanded });
+        };
+        
+        // Set up drop functionality for handling note movement
+        const [, drop] = useDrop({
+            accept: 'NOTE',
+            drop: (item) => handleNoteMove(item.id, item.originalFolderId, folder.id)
+        });
 
-    // If the folder is the notebook itself
-    if (folder.id === notebookId) {
-        return (
-            <div ref={drop} className='folder'>
-                <ul>
-                    {folder.notes && folder.notes.map((note) => (
-                        <Note key={note.id} note={note} notebookId={notebookId} folderId={folder.id} handleNoteMove={handleNoteMove} />
-                    ))}
-                    {folder.folders && folder.folders.length > 0 && folder.folders.map((subfolder) => (
-                        <li key={subfolder.id}>
-                            <Folder folder={subfolder} depth={0} notebookId={notebookId} handleNoteMove={handleNoteMove} />
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        );
-    }
-
-    // Style for adjusting the margin-left based on the folder depth
-    const depthStyle = {
-        marginLeft: `${depth * 20}px`,
-    };
-
-    // Render the Folder component
-    return (
-        <div ref={drop} className={isExpanded ? 'folder folder-vertical-line' : 'folder'} style={depthStyle}>
-            <div className='folder-header' onClick={toggleFolder}>
-                <IconoirProvider
-                    iconProps={{
-                        strokeWidth: 1.8,
-                        width: '1rem',
-                        height: '1.35rem',
-                    }}
-                >
-                    {isExpanded ? <NavArrowDown /> : <NavArrowRight />}
-                </IconoirProvider>
-                {folder.name}
-            </div>
-            {isExpanded && (
-                <ul>
-                    {folder.notes && folder.notes.map((note) => (
-                        <Note key={note.id} note={note} notebookId={notebookId} folderId={folder.id} handleNoteMove={handleNoteMove} />
-                    ))}
-                    {folder.folders && folder.folders.length > 0 && folder.folders.map((subfolder) => (
-                        <li key={subfolder.id}>
-                            <Folder folder={subfolder} depth={depth + 1} notebookId={notebookId} handleNoteMove={handleNoteMove} />
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </div>
-    );
-};
-
-// Function to count folders and notes
-function countFolderAndNotes (folders, notes) {
-    // Initialize counts with the number of folders and notes at the current level
-    let folderCount = folders.length;
-    let noteCount = notes.length;
-
-    // Iterate through each folder at the current level
-    for (const folder of folders) {
-        // Check if the folder has subfolders
-        if (folder.folders) {
-            // Recursively call the function for subfolders and get their counts
-            const { folderCount: subFolderCount, noteCount: subNoteCount } = countFolderAndNotes(folder.folders, folder.notes);
-
-            // Update counts with the counts from subfolders
-            folderCount += subFolderCount;
-
-            // Add notes from subfolders
-            noteCount += subNoteCount;
-        } else {
-            // If there are no subfolders, add notes at the current folder level
-            noteCount += folder.notes.length;
+        // If the folder is the notebook itself
+        if (folder.id === notebookId) {
+            return (
+                <div ref={drop} className='folder'>
+                    <ul>
+                        {folder.notes && folder.notes.map((note) => (
+                            <Note key={note.id} note={note} notebookId={notebookId} folderId={folder.id} handleNoteMove={handleNoteMove} />
+                        ))}
+                        {folder.folders && folder.folders.length > 0 && folder.folders.map((subfolder) => (
+                            <li key={subfolder.id}>
+                                <Folder folder={subfolder} depth={0} notebookId={notebookId} handleNoteMove={handleNoteMove} expandedFolders={expandedFolders}
+                                    setExpandedFolders={setExpandedFolders} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
         }
-    }
 
-    // Return the final counts for folders and notes at the current level
-    return { folderCount, noteCount };
-}
+        // Style for adjusting the margin-left based on the folder depth
+        const depthStyle = {
+            marginLeft: `${depth * 20}px`,
+        };
 
-// Destructuring folderCount and noteCount from the countFolderAndNotes result
-const { folderCount, noteCount } = notebook ? countFolderAndNotes(notebook.folders, notebook.notes) : { folderCount: 0, noteCount: 0 };
-
-return (
-    <div className='sidebar'>
-        <div className='sidebar-actions'>
-            <IconoirProvider
-                iconProps={{
-                    color: '',
-                    strokeWidth: 1.5,
-                    width: '1.75rem',
-                    height: '1.75rem',
-                }}
-            >
-                <div className='action-buttons'>
-                    <Link to="/" className='selected'>
-                        <MultiplePagesEmpty />
-                    </Link>
-                    <Link to="/">
-                        <ShareAndroid />
-                    </Link>
-                    <Link to="/">
-                        <CloudSync /></Link>
-                </div>
-                <div className='action-buttons' >
-                    <Link to="/">
-                        <UserCircle />
-                    </Link>
-                    <Link to="/">
-                        <GithubCircle />
-                    </Link>
-                    <Link to="/">
-                        <Settings />
-                    </Link>
-                </div>
-            </IconoirProvider>
-
-        </div>
-
-        {isOpen && (<div className='sidebar-content'>
-            <div className='sidebar-header'>
-                <h3 className='title'>My Notes</h3>
-                <p className='info'>{noteCount} notes, {folderCount} folder</p>
-                <div className='action-buttons'>
+        // Render the Folder component
+        return (
+            <div ref={drop} className={expandedFolders[folder.id] ? 'folder folder-vertical-line' : 'folder'} style={depthStyle}>
+                <div className='folder-header' onClick={toggleFolder}>
                     <IconoirProvider
                         iconProps={{
-                            color: '',
-                            strokeWidth: 1.5,
-                            width: '1.5rem',
-                            height: '1.5rem',
+                            strokeWidth: 1.8,
+                            width: '1rem',
+                            height: '1.35rem',
                         }}
                     >
-                        <PageEdit />
-                        <AddFolder />
-                        <SortDown />
-                        <ArrowUnionVertical />
+                        {expandedFolders[folder.id] ? <NavArrowDown /> : <NavArrowRight />}
                     </IconoirProvider>
+                    {folder.name}
                 </div>
+                {expandedFolders[folder.id] && (
+                    <ul>
+                        {folder.notes && folder.notes.map((note) => (
+                            <Note key={note.id} note={note} notebookId={notebookId} folderId={folder.id} handleNoteMove={handleNoteMove} />
+                        ))}
+                        {folder.folders && folder.folders.length > 0 && folder.folders.map((subfolder) => (
+                            <li key={subfolder.id}>
+                                <Folder folder={subfolder} depth={depth + 1} notebookId={notebookId} handleNoteMove={handleNoteMove} expandedFolders={expandedFolders}
+                                    setExpandedFolders={setExpandedFolders} />
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
-            <b>Notes</b>
-            <DndProvider backend={HTML5Backend}>
-                <div className='sidebar-note-explorer'>
-                    <Folder key={notebook.id} folder={notebook} notebookId={notebook.id} handleNoteMove={handleNoteMove} />
-                </div>
-            </DndProvider>
-        </div>)}
+        );
+    };
 
-    </div>
-);
+    // Function to count folders and notes
+    function countFolderAndNotes (folders, notes) {
+        // Initialize counts with the number of folders and notes at the current level
+        let folderCount = folders.length;
+        let noteCount = notes.length;
+
+        // Iterate through each folder at the current level
+        for (const folder of folders) {
+            // Check if the folder has subfolders
+            if (folder.folders) {
+                // Recursively call the function for subfolders and get their counts
+                const { folderCount: subFolderCount, noteCount: subNoteCount } = countFolderAndNotes(folder.folders, folder.notes);
+
+                // Update counts with the counts from subfolders
+                folderCount += subFolderCount;
+
+                // Add notes from subfolders
+                noteCount += subNoteCount;
+            } else {
+                // If there are no subfolders, add notes at the current folder level
+                noteCount += folder.notes.length;
+            }
+        }
+
+        // Return the final counts for folders and notes at the current level
+        return { folderCount, noteCount };
+    }
+
+    // Destructuring folderCount and noteCount from the countFolderAndNotes result
+    const { folderCount, noteCount } = notebook ? countFolderAndNotes(notebook.folders, notebook.notes) : { folderCount: 0, noteCount: 0 };
+
+    return (
+        <div className='sidebar'>
+            <div className='sidebar-actions'>
+                <IconoirProvider
+                    iconProps={{
+                        color: '',
+                        strokeWidth: 1.5,
+                        width: '1.75rem',
+                        height: '1.75rem',
+                    }}
+                >
+                    <div className='action-buttons'>
+                        <Link to="/" className='selected'>
+                            <MultiplePagesEmpty />
+                        </Link>
+                        <Link to="/">
+                            <ShareAndroid />
+                        </Link>
+                        <Link to="/">
+                            <CloudSync /></Link>
+                    </div>
+                    <div className='action-buttons' >
+                        <Link to="/">
+                            <UserCircle />
+                        </Link>
+                        <Link to="/">
+                            <GithubCircle />
+                        </Link>
+                        <Link to="/">
+                            <Settings />
+                        </Link>
+                    </div>
+                </IconoirProvider>
+
+            </div>
+
+            {isOpen && (<div className='sidebar-content'>
+                <div className='sidebar-header'>
+                    <h3 className='title'>My Notes</h3>
+                    <p className='info'>{noteCount} notes, {folderCount} folder</p>
+                    <div className='action-buttons'>
+                        <IconoirProvider
+                            iconProps={{
+                                color: '',
+                                strokeWidth: 1.5,
+                                width: '1.5rem',
+                                height: '1.5rem',
+                            }}
+                        >
+                            <PageEdit />
+                            <AddFolder />
+                            <SortDown />
+                            <ArrowUnionVertical />
+                        </IconoirProvider>
+                    </div>
+                </div>
+                <b>Notes</b>
+                <DndProvider backend={HTML5Backend}>
+                    <div className='sidebar-note-explorer'>
+                        <Folder key={notebook.id} folder={notebook} notebookId={notebook.id} handleNoteMove={handleNoteMove} expandedFolders={expandedFolders}
+                            setExpandedFolders={setExpandedFolders} />
+                    </div>
+                </DndProvider>
+            </div>)}
+
+        </div>
+    );
 }
 
 export default Sidebar;

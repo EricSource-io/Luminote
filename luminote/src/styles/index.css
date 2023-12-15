@@ -53,6 +53,7 @@ a:hover {
   color: #333;
   transition: border-color 0.3s;
 }
+
 select:focus,
 input:focus {
   outline: none;
@@ -66,9 +67,17 @@ input:focus {
   padding: 10px 16px;
   border: none;
   background-color: transparent;
+
   cursor: pointer;
+
 }
 
 .text-button:hover {
   background-color: #f6f6f6;
+
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
 }
