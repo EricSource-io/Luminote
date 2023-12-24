@@ -8,10 +8,12 @@ import '../styles/layout.css';
 function Layout ({ children }) {
     const location = useLocation();
     const isOpen = location.pathname !== '/';
+    
+
 
     return (
         <div className='app-container'>
-                <Topbar />
+                <Topbar applyStyleRef={children.props.applyStyleRef}/>
             <div className='main-container'>
                 <Sidebar isOpen={isOpen}/>
                 <div className='content'>

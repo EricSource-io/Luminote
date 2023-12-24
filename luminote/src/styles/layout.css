@@ -82,14 +82,22 @@
 
 .font-settings>.action-section>button.icon-button {
     background-color: transparent;
-    border: transparent 0px solid;
+    border: transparent 0px;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
     height: 100%;
-    width: 40px;
+    width: 45px;
     cursor: pointer;
 }
 
+.font-settings>.action-section>button.icon-button.active {
+   color: var(--primary-color);
+   border-bottom-color: var(--primary-color);
+}
+
+
 .font-settings>.action-section>button.icon-button:hover {
-    background-color: #0001;
+    background-color: var(--sidebar-background);
 }
 
 .sidebar {

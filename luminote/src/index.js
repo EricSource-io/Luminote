@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, useParams, } from "react-router-dom";
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 import './styles/theme.css'
 //import './styles/gruvbox-theme.css'
@@ -12,33 +14,34 @@ import NoPage from './pages/NoPage.jsx';
 import NotePage from './pages/NotePage.jsx';
 
 const App = () => {
-
   return (
-    <React.StrictMode>
-      <BrowserRouter>  
-            <Routes>
-              <Route
-                index
-                element={<Home />}
-              />
-              <Route
-                path='notebook/:notebookId'
-                element={<NotePage />}
+    <Provider store={store}>
+      <React.StrictMode>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              index
+              element={<Home />}
+            />
+            <Route
+              path='notebook/:notebookId'
+              element={<NotePage />}
 
-              />
-               <Route
-                path='notebook/:notebookId/:noteId'
-                element={<NotePage />}
+            />
+            <Route
+              path='notebook/:notebookId/:noteId'
+              element={<NotePage />}
 
-              />
-              <Route
-                path='*'
-                element={<NoPage />}
+            />
+            <Route
+              path='*'
+              element={<NoPage />}
 
-              />
-            </Routes> 
-      </BrowserRouter>
-    </React.StrictMode>
+            />
+          </Routes>
+        </BrowserRouter>
+      </React.StrictMode>
+    </Provider>
   );
 };
 

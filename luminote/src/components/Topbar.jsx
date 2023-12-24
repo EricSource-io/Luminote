@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
-    IconoirProvider, Bell, MoreHoriz, Enlarge, PasteClipboard, Bold, Italic, Underline
+    IconoirProvider, Bell, MoreHoriz, Enlarge, PasteClipboard, Bold, Italic, Underline, Edit, EditPencil
 } from 'iconoir-react';
 import FontSelector from './FontSelector';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTextStyle } from '../redux/reducers/textStylesReducers';
 
 function Topbar () {
+
+    const dispatch = useDispatch();
+    const textStyles = useSelector((state) => state.textStyles);
+
     // State to track the active tab
     const [activeTab, setActiveTab] = useState('home');
 
     // Function to handle tab change
     const handleTabChange = (tab) => {
         setActiveTab(tab);
+    };
+
+    const handleTextStyleToggle = (style) => {
+        const newTextStyleValue = !textStyles[style];
+        dispatch(toggleTextStyle({style, value: newTextStyleValue}));
     };
 
     // Function to render content based on the active tab
@@ -34,9 +45,27 @@ function Topbar () {
                                         height: '1.5rem',
                                     }}
                                 >
-                                    <button className='icon-button'> <Bold strokeWidth={2} /></button>
-                                    <button className='icon-button'> <Italic /></button>
-                                    <button className='icon-button'> <Underline /></button>
+                                    <button
+                                        className={`icon-button ${textStyles?.bold ? 'active' : ''}`}
+                                        onClick={() => handleTextStyleToggle('bold')}
+                                    >
+                                        <Bold strokeWidth={2} />
+                                    </button>
+                                    <button
+                                        className={`icon-button ${textStyles?.italic ? 'active' : ''}`}
+                                        onClick={() => handleTextStyleToggle('italic')}
+                                    >
+                                        <Italic />
+                                    </button>
+                                    <button
+                                        className={`icon-button ${textStyles?.underline ? 'active' : ''}`}
+                                        onClick={() => handleTextStyleToggle('underline')}
+                                    >
+                                        <Underline />
+                                    </button>
+                                    <button className='icon-button'>
+                                        <EditPencil /> color
+                                    </button>
                                 </IconoirProvider>
                             </div>
                         </div>
