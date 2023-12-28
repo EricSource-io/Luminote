@@ -35,7 +35,7 @@ function Canvas () {
   };
 
   const determineTextStyle = () => {
-
+    
     // Creates a endless loop :C 
 
     const currentStyle = editorState.getCurrentInlineStyle();
@@ -51,7 +51,7 @@ function Canvas () {
 
 
   useEffect(() => {
-    determineTextStyle();
+   // determineTextStyle();
   }, [editorState]);
 
   useEffect(() => {
