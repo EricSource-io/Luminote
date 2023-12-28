@@ -22,20 +22,32 @@ function Topbar () {
 
     const handleTextStyleToggle = (style) => {
         const newTextStyleValue = !textStyles[style];
-        dispatch(toggleTextStyle({style, value: newTextStyleValue}));
+        dispatch(toggleTextStyle({ style, value: newTextStyleValue }));
     };
 
     // Function to render content based on the active tab
     const renderContent = () => {
         switch (activeTab) {
             case 'home':
+                const StyleButton = ({ icon, style }) => {
+                    return (
+                        <button className={`icon-button ${textStyles[style] ? 'active' : ''}`}
+                            onMouseDown={(e) => {
+                                e.preventDefault();
+                                handleTextStyleToggle(style)
+                            }}>
+                            {icon}
+                        </button>
+                    );
+                };
                 return (
                     <>
                         <PasteClipboard />
                         <div className='font-settings'>
                             <div className='input-section'>
                                 <FontSelector />
-                                <input className='font-size' value={'14'} />
+                                <input className='font-size' value={'14'} onMouseDown={(e) => {
+                                    /*.canvas>Editor selected text should stay selected when clicking the font-size input*/}} />
                             </div>
                             <div className='action-section'>
                                 <IconoirProvider
@@ -45,24 +57,10 @@ function Topbar () {
                                         height: '1.5rem',
                                     }}
                                 >
-                                    <button
-                                        className={`icon-button ${textStyles?.bold ? 'active' : ''}`}
-                                        onClick={() => handleTextStyleToggle('bold')}
-                                    >
-                                        <Bold strokeWidth={2} />
-                                    </button>
-                                    <button
-                                        className={`icon-button ${textStyles?.italic ? 'active' : ''}`}
-                                        onClick={() => handleTextStyleToggle('italic')}
-                                    >
-                                        <Italic />
-                                    </button>
-                                    <button
-                                        className={`icon-button ${textStyles?.underline ? 'active' : ''}`}
-                                        onClick={() => handleTextStyleToggle('underline')}
-                                    >
-                                        <Underline />
-                                    </button>
+                                    <StyleButton icon={<Bold strokeWidth={2} />}style='bold'/>
+                                    <StyleButton icon={<Italic />} style='italic'/>
+                                    <StyleButton icon={<Underline />} style='underline'/>
+                                    
                                     <button className='icon-button'>
                                         <EditPencil /> color
                                     </button>

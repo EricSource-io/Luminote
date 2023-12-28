@@ -4,6 +4,7 @@ const initialState = {
     bold: false,
     italic: false,
     underline: false,
+    lastUpdatedStyle: null,
 };
 
 const textStylesSlice = createSlice({
@@ -13,6 +14,7 @@ const textStylesSlice = createSlice({
         toggleTextStyle: (state, action) => {
             const {style, value} = action.payload;
             state[style] = value;
+            state.lastUpdatedStyle = style.toUpperCase();
         },
     },
 });

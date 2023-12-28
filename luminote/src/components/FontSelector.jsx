@@ -12,7 +12,9 @@ function FontSelector () {
     };
 
     return (
-        <select className='font-selector' value={selectedFont} onChange={handleFontChange}>
+        <select className='font-selector' value={selectedFont}
+            onChange={handleFontChange}
+            onMouseDown={(e) => {/*.canvas>Editor selected text should stay selected when clicking the font-selector dropdown*/ }}>
             {fontOptions.map((font) => (
                 <option key={font} value={font}>
                     {font}

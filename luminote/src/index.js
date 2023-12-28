@@ -12,6 +12,7 @@ import './styles/index.css';
 import Home from './pages/Home.jsx';
 import NoPage from './pages/NoPage.jsx';
 import NotePage from './pages/NotePage.jsx';
+import Editor from './pages/Editor.jsx';
 
 const App = () => {
   return (
@@ -33,10 +34,13 @@ const App = () => {
               element={<NotePage />}
 
             />
+             <Route
+              path='editor'
+              element={<Editor />}
+            />
             <Route
               path='*'
               element={<NoPage />}
-
             />
           </Routes>
         </BrowserRouter>

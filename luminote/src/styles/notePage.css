@@ -20,28 +20,10 @@
     position: relative;
 }
 
-.canvas>div.note-edit {
+.canvas>.DraftEditor-root{
     position: absolute;
     padding-top: 20px;
     padding-left: 30px;
-    font-size: 18px;
-    height: 100%;
-    width: 100%;
-
-}
-
-.canvas>div.note-edit:focus {
-    outline: none;
-}
-
-.canvas>div.note-edit .bold {
-    font-weight: bold;
-}
-
-.canvas>div.note-edit .color-red {
-    color: red;
-}
-
-.canvas>div.note-edit .color-blue {
-    color: blue;
+    width: inherit;
+    height: inherit;
 }
