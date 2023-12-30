@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { applyTextStyle } from '../utils/textEditingUtils';
-import { toggleTextStyle } from '../redux/reducers/textStylesReducers';
+import { applyTextStyle, toggleTextStyle } from '../redux/reducers/textStylesReducers';
 import { Editor, EditorState, RichUtils, Modifier } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
@@ -18,51 +17,39 @@ function Canvas () {
     EditorState.createEmpty(),
   );
 
+  const updateTextStyles = (newState) => {
+    // Dispatch the action to update the Redux store
+    const currentStyle = newState.getCurrentInlineStyle();
+    Object.keys(textStyles.styles).forEach((style) => {
+      const isActive = currentStyle.has(style.toUpperCase());
+      dispatch(toggleTextStyle({ style, value: isActive }));
+    });
+  };
+
   // Function to handle changes in the editor content
   const onChange = (newState) => {
     setEditorState(newState);
+    updateTextStyles(newState);
   };
 
   // Function to handle key commands (e.g., Ctrl + B for bold)
   const handleKeyCommand = (command) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
-      // !!! Remove when 'determineTextStyle' is implementet
-      dispatch(toggleTextStyle({ style: command, value: !textStyles[command] }));
+      dispatch(toggleTextStyle({ style: command, value: !textStyles.styles[command] }));
+      dispatch(applyTextStyle());
       return 'handled';
     }
     return 'not-handled';
   };
 
-  const determineTextStyle = () => {
-    
-    // Creates a endless loop :C 
-
-    const currentStyle = editorState.getCurrentInlineStyle();
-    Object.keys(textStyles).forEach((style) => {
-      if (style == 'lastStyleUpdated') return;
-      const isStyleActive = currentStyle.has(style);
-      if (textStyles[style] !== isStyleActive) {
-        dispatch(toggleTextStyle({ style, value: isStyleActive }));
-      } 
-    });
-
-  }
 
 
   useEffect(() => {
-   // determineTextStyle();
-  }, [editorState]);
-
-  useEffect(() => {
-    const applyStyles = () => {
-      const style = textStyles['lastUpdatedStyle'];
-      if (style) onChange(RichUtils.toggleInlineStyle(editorState, style));
-    };
-
-    // Call the applyStyles function when textStyles change
-    applyStyles();
-  }, [textStyles]);
+    // Apply text style
+    const style = textStyles.lastUpdated;
+    if (style) onChange(RichUtils.toggleInlineStyle(editorState, style));
+  }, [textStyles.applyLastStyle]);
 
   return (
     <div className='canvas' ref={canvasRef} >

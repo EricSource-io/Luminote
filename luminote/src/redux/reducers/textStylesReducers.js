@@ -1,10 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    bold: false,
-    italic: false,
-    underline: false,
-    lastUpdatedStyle: null,
+    styles: {
+        bold: false,
+        italic: false,
+        underline: false,
+    },
+    lastUpdated: null,
+    applyLastStyle: null
 };
 
 const textStylesSlice = createSlice({
@@ -13,11 +16,14 @@ const textStylesSlice = createSlice({
     reducers: {
         toggleTextStyle: (state, action) => {
             const {style, value} = action.payload;
-            state[style] = value;
-            state.lastUpdatedStyle = style.toUpperCase();
+            state.styles[style] = value;
+            state.lastUpdated = style?.toUpperCase();
         },
+        applyTextStyle: (state) => {
+            state.applyLastStyle = Date.now();
+        }
     },
 });
 
-export const { toggleTextStyle } = textStylesSlice.actions;
+export const { toggleTextStyle, applyTextStyle } = textStylesSlice.actions;
 export default textStylesSlice.reducer;

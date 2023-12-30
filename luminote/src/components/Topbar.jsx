@@ -5,15 +5,26 @@ import {
 } from 'iconoir-react';
 import FontSelector from './FontSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleTextStyle } from '../redux/reducers/textStylesReducers';
+import { toggleTextStyle, applyTextStyle } from '../redux/reducers/textStylesReducers';
 
 function Topbar () {
 
     const dispatch = useDispatch();
     const textStyles = useSelector((state) => state.textStyles);
+    const [boldActive, setBoldActive] = useState(false);
+    const [italicActive, setItalicActive] = useState(false);
+    const [underlineActive, setUnderlineActive] = useState(false);
+
 
     // State to track the active tab
     const [activeTab, setActiveTab] = useState('home');
+
+    useEffect(() => {
+        // Update button states when textStyles.styles change
+        setBoldActive(textStyles.styles.bold);
+        setItalicActive(textStyles.styles.italic);
+        setUnderlineActive(textStyles.styles.underline);
+    }, [textStyles.styles]);
 
     // Function to handle tab change
     const handleTabChange = (tab) => {
@@ -21,17 +32,18 @@ function Topbar () {
     };
 
     const handleTextStyleToggle = (style) => {
-        const newTextStyleValue = !textStyles[style];
+        const newTextStyleValue = !textStyles.styles[style];
         dispatch(toggleTextStyle({ style, value: newTextStyleValue }));
+        dispatch(applyTextStyle());
     };
 
     // Function to render content based on the active tab
     const renderContent = () => {
         switch (activeTab) {
             case 'home':
-                const StyleButton = ({ icon, style }) => {
+                const StyleButton = ({ icon, style, active }) => {
                     return (
-                        <button className={`icon-button ${textStyles[style] ? 'active' : ''}`}
+                        <button className={`icon-button ${active ? 'active' : ''}`}
                             onMouseDown={(e) => {
                                 e.preventDefault();
                                 handleTextStyleToggle(style)
@@ -47,7 +59,8 @@ function Topbar () {
                             <div className='input-section'>
                                 <FontSelector />
                                 <input className='font-size' value={'14'} onMouseDown={(e) => {
-                                    /*.canvas>Editor selected text should stay selected when clicking the font-size input*/}} />
+                                    /*.canvas>Editor selected text should stay selected when clicking the font-size input*/
+                                }} />
                             </div>
                             <div className='action-section'>
                                 <IconoirProvider
@@ -57,10 +70,10 @@ function Topbar () {
                                         height: '1.5rem',
                                     }}
                                 >
-                                    <StyleButton icon={<Bold strokeWidth={2} />}style='bold'/>
-                                    <StyleButton icon={<Italic />} style='italic'/>
-                                    <StyleButton icon={<Underline />} style='underline'/>
-                                    
+                                    <StyleButton icon={<Bold strokeWidth={2} />} style='bold' active={boldActive} />
+                                    <StyleButton icon={<Italic />} style='italic' active={italicActive} />
+                                    <StyleButton icon={<Underline />} style='underline' active={underlineActive} />
+
                                     <button className='icon-button'>
                                         <EditPencil /> color
                                     </button>
