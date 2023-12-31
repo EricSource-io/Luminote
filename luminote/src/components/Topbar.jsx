@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
-    IconoirProvider, Bell, MoreHoriz, Enlarge, PasteClipboard, Bold, Italic, Underline, Edit, EditPencil
+    IconoirProvider, Bell, MoreHoriz, Enlarge, PasteClipboard, Bold, Italic, Underline, Edit, EditPencil, Text
 } from 'iconoir-react';
 import FontSelector from './FontSelector';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,8 @@ function Topbar () {
     const [italicActive, setItalicActive] = useState(false);
     const [underlineActive, setUnderlineActive] = useState(false);
 
+
+    const [fontColor, setFontColor] = useState('#333');
 
     // State to track the active tab
     const [activeTab, setActiveTab] = useState('home');
@@ -41,9 +43,9 @@ function Topbar () {
     const renderContent = () => {
         switch (activeTab) {
             case 'home':
-                const StyleButton = ({ icon, style, active }) => {
+                const StyleButton = ({ icon, style, activeState }) => {
                     return (
-                        <button className={`icon-button ${active ? 'active' : ''}`}
+                        <button className={`icon-button ${activeState ? 'active' : ''}`}
                             onMouseDown={(e) => {
                                 e.preventDefault();
                                 handleTextStyleToggle(style)
@@ -52,6 +54,23 @@ function Topbar () {
                         </button>
                     );
                 };
+                const TextColorButton = ({ colorState }) => {
+                    const onClick = (e) => {
+                        e.preventDefault();
+                        // Open ColorPickerDialog
+                        setFontColor('red');
+                    }
+
+                    return (
+                        <button className='icon-button' onMouseDown={onClick}>
+                            <div className='color-preview' style={{ backgroundColor: colorState }} />
+                            <Text />
+                        </button>);
+                };
+                const ColorPickerDialog = ({ colorState }) => {
+                    return (<div>Dialog</div>);
+                };
+
                 return (
                     <>
                         <PasteClipboard />
@@ -70,13 +89,10 @@ function Topbar () {
                                         height: '1.5rem',
                                     }}
                                 >
-                                    <StyleButton icon={<Bold strokeWidth={2} />} style='bold' active={boldActive} />
-                                    <StyleButton icon={<Italic />} style='italic' active={italicActive} />
-                                    <StyleButton icon={<Underline />} style='underline' active={underlineActive} />
-
-                                    <button className='icon-button'>
-                                        <EditPencil /> color
-                                    </button>
+                                    <StyleButton icon={<Bold strokeWidth={2} />} style='bold' activeState={boldActive} />
+                                    <StyleButton icon={<Italic />} style='italic' activeState={italicActive} />
+                                    <StyleButton icon={<Underline />} style='underline' activeState={underlineActive} />
+                                    <TextColorButton colorState={fontColor} />
                                 </IconoirProvider>
                             </div>
                         </div>

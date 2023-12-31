@@ -6,6 +6,7 @@ const initialState = {
         italic: false,
         underline: false,
     },
+    
     lastUpdated: null,
     applyLastStyle: null
 };
