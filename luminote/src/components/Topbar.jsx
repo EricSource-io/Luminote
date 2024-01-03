@@ -6,6 +6,18 @@ import {
 import FontSelector from './FontSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTextStyle, applyTextStyle } from '../redux/reducers/textStylesReducers';
+import "../styles/topbar.css";
+
+const COLORS = [
+    "#ffffff", "#f9f9f9", "#f2f2f2", "#e5e5e5", "#d9d9d9",
+    "#cccccc", "#bfbfbf", "#b3b3b3", "#a6a6a6", "#999999",
+    "#8c8c8c", "#808080", "#737373", "#666666", "#595959",
+    "#4d4d4d", "#404040", "#333333", "#262626", "#1a1a1a",
+    "#0d0d0d", "#000000", "#ffebcd", "#ffdab9", "#ffc0cb",
+    "#ffa07a", "#ff8c00", "#ff7f50", "#ff6347", "#ff4500",
+    "#ff0000", "#dc143c", "#b22222", "#8b0000", "#800000",
+    "#8b4513", "#a52a2a", "#d2691e", "#cd853f", "#a0522d"
+];
 
 function Topbar () {
 
@@ -14,7 +26,6 @@ function Topbar () {
     const [boldActive, setBoldActive] = useState(false);
     const [italicActive, setItalicActive] = useState(false);
     const [underlineActive, setUnderlineActive] = useState(false);
-
 
     const [fontColor, setFontColor] = useState('#333');
 
@@ -43,6 +54,7 @@ function Topbar () {
     const renderContent = () => {
         switch (activeTab) {
             case 'home':
+
                 const StyleButton = ({ icon, style, activeState }) => {
                     return (
                         <button className={`icon-button ${activeState ? 'active' : ''}`}
@@ -54,21 +66,74 @@ function Topbar () {
                         </button>
                     );
                 };
-                const TextColorButton = ({ colorState }) => {
+
+                const FontColorButton = ({ colorState }) => {
+                    const [showColorPicker, setShowColorPicker] = useState(false);
+
                     const onClick = (e) => {
                         e.preventDefault();
-                        // Open ColorPickerDialog
-                        setFontColor('red');
+                        // Toggle the visibility of the color picker dialog
+                        setShowColorPicker(!showColorPicker);
                     }
 
+                    const ColorPickerDialog = () => {
+                        const Color = ({ color }) => {
+                            const onClick = (e) => {
+                                e.preventDefault();
+
+                                setFontColor(color);
+
+                                // Toggle the visibility of the color picker dialog
+                                setShowColorPicker(!showColorPicker);
+
+                            }
+                            return (<button onMouseDown={onClick} className='color'
+                                style={{ backgroundColor: color }} />);
+                        };
+
+                        return (
+                            <div className='color-picker-dialog'>
+                                <div className='header'>
+                                    <p>Font Color</p>
+                                </div>
+                                <div className='theme-colors'>
+                                    <p>Theme Colors</p>
+                                    <div className='color-container'>
+                                        <Color color='darkred' />
+                                        <Color color='red' />
+                                        <Color color='orange' />
+                                        <Color color='yellow' />
+                                        <Color color='lightgreen' />
+                                        <Color color='green' />
+                                        <Color color='lightblue' />
+                                        <Color color='blue' />
+                                        <Color color='darkblue' />
+                                        <Color color='darkviolet' />
+                                    </div>
+                                </div>
+                                <div className='standard-colors'>
+                                    <p>Standard Colors</p>
+                                    <div className='color-container'>
+                                        {COLORS.map((color, index) => (
+                                            <Color key={index} color={color} />
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className='more-colors'>
+                                    More Colors (Color Picker)
+                                </div>
+                            </div>);
+                    };
+
                     return (
-                        <button className='icon-button' onMouseDown={onClick}>
-                            <div className='color-preview' style={{ backgroundColor: colorState }} />
-                            <Text />
-                        </button>);
-                };
-                const ColorPickerDialog = ({ colorState }) => {
-                    return (<div>Dialog</div>);
+                        <div>
+                            <button className='icon-button' onMouseDown={onClick}>
+                                <div className='color-preview' style={{ backgroundColor: colorState }} />
+                                <Text />
+                            </button>
+                            {showColorPicker && <ColorPickerDialog />}
+                        </div>
+                    );
                 };
 
                 return (
@@ -92,7 +157,7 @@ function Topbar () {
                                     <StyleButton icon={<Bold strokeWidth={2} />} style='bold' activeState={boldActive} />
                                     <StyleButton icon={<Italic />} style='italic' activeState={italicActive} />
                                     <StyleButton icon={<Underline />} style='underline' activeState={underlineActive} />
-                                    <TextColorButton colorState={fontColor} />
+                                    <FontColorButton colorState={fontColor} />
                                 </IconoirProvider>
                             </div>
                         </div>

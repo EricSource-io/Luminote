@@ -1,0 +1,164 @@
+.topbar {
+    background-color: var(--topbar-background);
+    min-height: 85px;
+    z-index: 3;
+    box-shadow: var(--box-shadow);
+    display: grid;
+}
+
+.topbar-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.topbar-header>.topbar-left>button {
+    font-size: 14px;
+    border-bottom: transparent solid 2px;
+}
+
+.topbar-header>.topbar-left>.selected {
+    border-bottom: var(--primary-color) solid 2px;
+    color: var(--primary-color);
+}
+
+.topbar-header>.topbar-right {
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+.topbar-header>.topbar-right>* {
+    padding-left: 30px;
+}
+
+.topbar-content {
+    display: flex;
+    height: 100%;
+}
+
+.font-settings {
+    display: flex;
+    margin-left: 80px;
+}
+
+.font-settings>.input-section {
+    display: flex;
+    padding: 0 10px;
+    height: 100%;
+    align-items: center;
+}
+
+.font-settings>.input-section>input,
+.font-settings>.input-section select.font-selector {
+    border: solid #0002 1px;
+    font-size: 14px;
+    height: 25px;
+    box-sizing: border-box;
+}
+
+.font-settings>.input-section select.font-selector {
+    max-width: 150px;
+}
+
+.font-settings>.input-section input.font-size {
+    max-width: 60px;
+    border-left: none;
+}
+
+.font-settings>.action-section {
+    display: flex;
+}
+
+.font-settings>.action-section button.icon-button {
+    position: relative;
+    background-color: transparent;
+    border: transparent 0px;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    height: 100%;
+    width: 45px;
+    cursor: pointer;
+}
+
+
+.font-settings>.action-section button.icon-button.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.font-settings>.action-section button.icon-button:hover {
+    background-color: var(--sidebar-background);
+}
+
+.font-settings>.action-section button.icon-button div.color-preview {
+    position: absolute;
+    margin-left: 8px;
+    margin-top: 22px;
+    width: 16px;
+    height: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.46);
+}
+
+.font-settings>.action-section div.color-picker-dialog {
+    position: fixed;
+    height: min-content;
+    width: 365px;
+    background-color: var(--topbar-background);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 transparent;
+}
+
+.color-picker-dialog>* {
+    padding: 10px;
+}
+
+.color-picker-dialog>.header {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #0001;
+    border-top: 1px solid #0001;
+}
+
+.color-picker-dialog>.header>p {
+    font-weight: 500;
+}
+
+.color-picker-dialog>.theme-colors {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #0001;
+}
+
+.color-picker-dialog>.theme-colors>p,
+.color-picker-dialog>.standard-colors>p {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.color-picker-dialog>.standard-colors {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #0001;
+}
+
+.color-picker-dialog .color-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 3px;
+}
+
+.color-picker-dialog button.color {
+    flex-basis: calc(10% - 3px);
+    aspect-ratio: 1 / 1;
+    box-sizing: border-box;
+    border: 1px solid rgba(128, 128, 128, 0.521);
+    border-radius: 50%;
+    transition: 0.1s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.color-picker-dialog button.color:hover {
+    transform: scale(1.1);
+    border-color: black;
+
+}

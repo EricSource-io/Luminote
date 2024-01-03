@@ -51,7 +51,7 @@ function Canvas () {
   }, [textStyles.applyLastStyle]);
   
   useEffect(() => {
-    const html = '<p>Test <strong>&nbsp;123 Test </strong><em>Hallo </em><u><strong>HeyHo</strong></u></p>';
+    const html = '<p>Test <strong>&nbsp;123 Test </strong><em>Hello </em><u><strong>HoHo</strong></u></p>';
     const contentState = stateFromHTML(html);
     setEditorState(EditorState.createWithContent(contentState));
   }, []);
@@ -64,7 +64,7 @@ function Canvas () {
 
   return (
     <div className='canvas' ref={canvasRef} >
-      <button onClick={test}>Convert</button>
+
       <Editor
         ref={editorRef}
         editorState={editorState}
