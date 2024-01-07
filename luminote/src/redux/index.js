@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import tempReducer from './reducers/tempReducer';
-import textStylesReducer from './reducers/textStylesReducers';
+import fontStylesReducer from './reducers/fontStylesReducers';
 
 const rootReducer = combineReducers({
     temp: tempReducer,
-    textStyles: textStylesReducer
+    fontStyles: fontStylesReducer
 });
 
 export default rootReducer;

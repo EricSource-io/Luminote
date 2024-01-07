@@ -73,29 +73,69 @@
     background-color: transparent;
     border: transparent 0px;
     border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
     height: 100%;
     width: 45px;
     cursor: pointer;
 }
-
 
 .font-settings>.action-section button.icon-button.active {
     color: var(--primary-color);
     border-bottom-color: var(--primary-color);
 }
 
-.font-settings>.action-section button.icon-button:hover {
+.font-settings>.action-section>button.icon-button:hover {
     background-color: var(--sidebar-background);
 }
 
-.font-settings>.action-section button.icon-button div.color-preview {
+.font-settings>.action-section div.font-color-container button.icon-button {
+    border: none;
+}
+
+
+.font-settings>.action-section div.font-color-container {
+    display: flex;
+    height: 100%;
+}
+
+.font-settings>.action-section div.font-color-buttons {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid transparent;
+}
+
+.font-settings>.action-section div.font-color-buttons:hover {
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.font-settings>.action-section div.font-color-container>div.font-color-buttons>button.icon-button div.color-preview {
     position: absolute;
     margin-left: 8px;
     margin-top: 22px;
-    width: 16px;
+    width: 15px;
     height: 4px;
     border: 1px solid rgba(0, 0, 0, 0.46);
+}
+
+.font-settings>.action-section div.font-color-buttons>button.icon-button:hover {
+    background-color: var(--sidebar-background);
+}
+
+.font-settings>.action-section div.font-color-buttons>button.expand-button {
+    display: none;
+}
+
+.font-settings>.action-section div.font-color-buttons>button.expand-button {
+    /*On icon button hover*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.font-settings>.action-section div.font-color-buttons>button.expand-button:hover {
+    background-color: var(--sidebar-background);
 }
 
 .font-settings>.action-section div.color-picker-dialog {

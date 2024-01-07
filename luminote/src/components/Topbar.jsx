@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import {
-    IconoirProvider, Bell, MoreHoriz, Enlarge, PasteClipboard, Bold, Italic, Underline, Edit, EditPencil, Text
+    IconoirProvider, Bell, MoreHoriz, Enlarge, PasteClipboard, Bold, Italic, Underline, Edit, EditPencil, Text, NavArrowDown
 } from 'iconoir-react';
 import FontSelector from './FontSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleTextStyle, applyTextStyle } from '../redux/reducers/textStylesReducers';
+import { toggleFontStyle, applyFontStyle, applyFontColor } from '../redux/reducers/fontStylesReducers';
 import "../styles/topbar.css";
 
 const COLORS = [
@@ -21,33 +20,36 @@ const COLORS = [
 
 function Topbar () {
 
+    // Redux
     const dispatch = useDispatch();
-    const textStyles = useSelector((state) => state.textStyles);
+    const fontStylesState = useSelector((state) => state.fontStyles);
+
+    // States
     const [boldActive, setBoldActive] = useState(false);
     const [italicActive, setItalicActive] = useState(false);
     const [underlineActive, setUnderlineActive] = useState(false);
-
-    const [fontColor, setFontColor] = useState('#333');
+    const [fontColor, setFontColor] = useState('#000000');
 
     // State to track the active tab
     const [activeTab, setActiveTab] = useState('home');
 
     useEffect(() => {
         // Update button states when textStyles.styles change
-        setBoldActive(textStyles.styles.bold);
-        setItalicActive(textStyles.styles.italic);
-        setUnderlineActive(textStyles.styles.underline);
-    }, [textStyles.styles]);
+        setBoldActive(fontStylesState.styles.bold);
+        setItalicActive(fontStylesState.styles.italic);
+        setUnderlineActive(fontStylesState.styles.underline);
+        setFontColor(fontStylesState.fontColor);
+    }, [fontStylesState.styles]);
 
     // Function to handle tab change
     const handleTabChange = (tab) => {
         setActiveTab(tab);
     };
 
-    const handleTextStyleToggle = (style) => {
-        const newTextStyleValue = !textStyles.styles[style];
-        dispatch(toggleTextStyle({ style, value: newTextStyleValue }));
-        dispatch(applyTextStyle());
+    const handleFontStyleToggle = (style) => {
+        const newFontStyleValue = !fontStylesState.styles[style];
+        dispatch(toggleFontStyle({ style, value: newFontStyleValue }));
+        dispatch(applyFontStyle());
     };
 
     // Function to render content based on the active tab
@@ -60,7 +62,7 @@ function Topbar () {
                         <button className={`icon-button ${activeState ? 'active' : ''}`}
                             onMouseDown={(e) => {
                                 e.preventDefault();
-                                handleTextStyleToggle(style)
+                                handleFontStyleToggle(style)
                             }}>
                             {icon}
                         </button>
@@ -70,7 +72,14 @@ function Topbar () {
                 const FontColorButton = ({ colorState }) => {
                     const [showColorPicker, setShowColorPicker] = useState(false);
 
-                    const onClick = (e) => {
+                    const applyColor = (e) => {
+                        e.preventDefault();
+                        // Apply Color to ...
+                        // Toggle the visibility of the color picker dialog
+                        setShowColorPicker(false);
+                    }
+
+                    const openColorDialog = (e) => {
                         e.preventDefault();
                         // Toggle the visibility of the color picker dialog
                         setShowColorPicker(!showColorPicker);
@@ -80,12 +89,10 @@ function Topbar () {
                         const Color = ({ color }) => {
                             const onClick = (e) => {
                                 e.preventDefault();
-
                                 setFontColor(color);
-
+                                dispatch(applyFontColor({ color }));
                                 // Toggle the visibility of the color picker dialog
                                 setShowColorPicker(!showColorPicker);
-
                             }
                             return (<button onMouseDown={onClick} className='color'
                                 style={{ backgroundColor: color }} />);
@@ -127,10 +134,15 @@ function Topbar () {
 
                     return (
                         <div>
-                            <button className='icon-button' onMouseDown={onClick}>
-                                <div className='color-preview' style={{ backgroundColor: colorState }} />
-                                <Text />
-                            </button>
+                            <div className='font-color-container'>
+                                <div className='font-color-buttons'>
+                                    <button className='icon-button' onMouseDown={applyColor}>
+                                        <div className='color-preview' style={{ backgroundColor: colorState }} />
+                                        <Text />
+                                    </button>
+                                    <button className='expand-button' onMouseDown={openColorDialog}><NavArrowDown width='1.2rem' /></button>
+                                </div>
+                            </div>
                             {showColorPicker && <ColorPickerDialog />}
                         </div>
                     );
