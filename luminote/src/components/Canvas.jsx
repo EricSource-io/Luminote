@@ -51,6 +51,26 @@ function Canvas () {
     if (styleToUpdate) handleEditorChange(RichUtils.toggleInlineStyle(editorState, styleToUpdate));
   }, [fontStylesState.applyLastStyle]);
 
+  const HIGHLIGHT = 'HIGHLIGHT';
+  const [styleMap, setStyleMap] = useState({
+    [HIGHLIGHT]: { color: '#03ff22' },
+  });
+
+  useEffect(() => {
+    // Apply font color
+    const color = fontStylesState.fontColor;
+
+    setStyleMap({
+      ...styleMap,
+      [HIGHLIGHT]: { color: color },
+    });
+
+    const newState = RichUtils.toggleInlineStyle(editorState, HIGHLIGHT);
+    setEditorState(newState);
+  }, [fontStylesState.fontColor]);
+
+
+
   // Set initial editor content from HTML
   useEffect(() => {
     const html = '<p>Test <strong>&nbsp;123 Test </strong><em>Hello </em><u><strong>HoHo</strong></u></p>';
@@ -58,41 +78,17 @@ function Canvas () {
     setEditorState(EditorState.createWithContent(contentState));
   }, []);
 
-  useEffect(() => {
-    // Apply font color
-    const color = fontStylesState.fontColor | '#00000';
-    // finish this shit... :P 
-  }, [fontStylesState.fontColor]);
 
-
-  const test = (e) => {
-
-    // To apply the font color to all subsequent text typed 
-    // collasped selection
-
-    e.preventDefault();
-    const color = '#03ff2';
-
-    const selectionState = editorState.getSelection();
-    const currentContent = editorState.getCurrentContent();
-
-    // todo: remove old inline color
-
-    const contentWithColor = Modifier.applyInlineStyle(editorState, currentContent, color);
-
-    const newEditorState = EditorState.push(editorState, contentWithColor,'change-inline-style');
-    setEditorState(newEditorState);
-
-  };
+ 
 
   return (
     <div className='canvas' ref={canvasRef} >
-      <button onMouseDown={test}>toggleColorTest</button>
       <Editor
         ref={editorRef}
         editorState={editorState}
         handleKeyCommand={handleKeyCommand}
         onChange={handleEditorChange}
+        customStyleMap={styleMap}
       />
     </div>
   );

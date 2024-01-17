@@ -1,9 +1,11 @@
 .topbar {
-    background-color: var(--topbar-background);
+    background-color: var(--background-secondary);
+    color: var(--text-normal);
     min-height: 85px;
     z-index: 3;
     box-shadow: var(--box-shadow);
     display: grid;
+    border-bottom: 1px solid var(--dark1);
 }
 
 .topbar-header {
@@ -14,11 +16,12 @@
 .topbar-header>.topbar-left>button {
     font-size: 14px;
     border-bottom: transparent solid 2px;
+    color: var(--text-faint)
 }
 
 .topbar-header>.topbar-left>.selected {
-    border-bottom: var(--primary-color) solid 2px;
-    color: var(--primary-color);
+    border-bottom: var(--primary) solid 2px;
+    color: var(--primary);
 }
 
 .topbar-header>.topbar-right {
@@ -49,10 +52,12 @@
 
 .font-settings>.input-section>input,
 .font-settings>.input-section select.font-selector {
-    border: solid #0002 1px;
+    border: solid var(--dark1) 1px;
     font-size: 14px;
     height: 25px;
     box-sizing: border-box;
+    background-color: var(--background-primary);
+    color: var(--text-faint);
 }
 
 .font-settings>.input-section select.font-selector {
@@ -70,6 +75,7 @@
 
 .font-settings>.action-section button.icon-button {
     position: relative;
+    color: var(--text-faint);
     background-color: transparent;
     border: transparent 0px;
     border-bottom: 1px solid transparent;
@@ -79,12 +85,12 @@
 }
 
 .font-settings>.action-section button.icon-button.active {
-    color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
+    color: var(--primary);
+    border-bottom-color: var(--primary);
 }
 
 .font-settings>.action-section>button.icon-button:hover {
-    background-color: var(--sidebar-background);
+    background-color: var(--background-primary);
 }
 
 .font-settings>.action-section div.font-color-container button.icon-button {
@@ -97,15 +103,18 @@
     height: 100%;
 }
 
+
+.font-settings>.action-section div.font-color-container:hover {
+   background-color: var(--background-primary);
+
+}
+
+
 .font-settings>.action-section div.font-color-buttons {
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid transparent;
 }
 
-.font-settings>.action-section div.font-color-buttons:hover {
-    border-bottom: 1px solid var(--primary-color);
-}
 
 .font-settings>.action-section div.font-color-container>div.font-color-buttons>button.icon-button div.color-preview {
     position: absolute;
@@ -113,37 +122,37 @@
     margin-top: 22px;
     width: 15px;
     height: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.46);
+    border: 1px solid var(--dark2);
 }
+
 
 .font-settings>.action-section div.font-color-buttons>button.icon-button:hover {
-    background-color: var(--sidebar-background);
+    background-color: var(--background-primary);
 }
 
-.font-settings>.action-section div.font-color-buttons>button.expand-button {
-    display: none;
-}
+
 
 .font-settings>.action-section div.font-color-buttons>button.expand-button {
-    /*On icon button hover*/
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0;
     border: none;
     background-color: transparent;
+    color: var(--text-faint);
 }
 
 .font-settings>.action-section div.font-color-buttons>button.expand-button:hover {
-    background-color: var(--sidebar-background);
+    background-color: var(--background-primary);
 }
 
 .font-settings>.action-section div.color-picker-dialog {
     position: fixed;
     height: min-content;
     width: 365px;
-    background-color: var(--topbar-background);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 transparent;
+    background-color: var(--background-secondary);
+    border: solid 1px var(--dark1);
+    border-top: solid 1px var(--dark0);
 }
 
 .color-picker-dialog>* {

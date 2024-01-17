@@ -10,9 +10,7 @@ ul {
 }
 
 body {
-  font-family: var(--main-font);
-  background-color: var(--background-color);
-  color: var(--text-color);
+  font-family: var(--font-text-theme);
   height: 100%;
   margin: 0;
   user-select: none;
@@ -34,23 +32,20 @@ li {
 }
 
 a {
+  color: unset;
   text-decoration: none;
-  color: var(--primary-color);
-  transition: color 0.3s;
 }
 
-a:hover {
-  color: var(--secondary-color);
-}
+
 
 .text-input {
   width: 100%;
   padding: 5px 0;
+  color: var(--text-normal);
   border: none;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid;
   background: transparent;
   font-size: 16px;
-  color: #333;
   transition: border-color 0.3s;
 }
 
@@ -60,20 +55,18 @@ input:focus {
 }
 
 .text-input:focus {
-  border-color: #007BFF;
+  border-color: var(--primary);
 }
 
 .text-button {
   padding: 10px 16px;
   border: none;
   background-color: transparent;
-
   cursor: pointer;
-
 }
 
 .text-button:hover {
-  background-color: #f6f6f6;
+  background-color: var(--background-primary);
 
 }
 

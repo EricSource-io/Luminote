@@ -173,10 +173,9 @@ function Sidebar ({ isOpen }) {
             <div className='sidebar-actions'>
                 <IconoirProvider
                     iconProps={{
-                        color: '',
                         strokeWidth: 1.5,
-                        width: '1.75rem',
-                        height: '1.75rem',
+                        width: '1.5rem',
+                        height: '1.5rem',
                     }}
                 >
                     <div className='action-buttons'>
@@ -211,10 +210,9 @@ function Sidebar ({ isOpen }) {
                     <div className='action-buttons'>
                         <IconoirProvider
                             iconProps={{
-                                color: '',
                                 strokeWidth: 1.5,
-                                width: '1.5rem',
-                                height: '1.5rem',
+                                width: '1.4rem',
+                                height: '1.4rem',
                             }}
                         >
                             <PageEdit />
@@ -224,7 +222,7 @@ function Sidebar ({ isOpen }) {
                         </IconoirProvider>
                     </div>
                 </div>
-                <b>Notes</b>
+              
                 <DndProvider backend={HTML5Backend}>
                     <div className='sidebar-note-explorer'>
                         <Folder key={notebook.id} folder={notebook} notebookId={notebook.id} handleNoteMove={handleNoteMove} expandedFolders={expandedFolders}

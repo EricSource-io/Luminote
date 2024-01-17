@@ -20,8 +20,8 @@ const initialState = {
         underline: false,
     },
     fontColor: '#000000',
-    lastUpdated: null,
-    applyLastStyle: null
+    lastUpdated: null, // (BOLD, ITALIC, ...)
+    applyLastStyle: null // DATETIME
 };
 
 const fontStylesSlice = createSlice({
@@ -36,9 +36,13 @@ const fontStylesSlice = createSlice({
         applyFontStyle: (state) => {
             state.applyLastStyle = Date.now();
         },
+        setFontColor: () =>{
+
+        },
         applyFontColor: (state, action) => {
+            console.log('test');
             const {color} = action.payload;
-            state.fontColor = color;
+            state.fontColor = color || '#000000';
         },
     },
 });

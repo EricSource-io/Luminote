@@ -74,7 +74,7 @@ function Topbar () {
 
                     const applyColor = (e) => {
                         e.preventDefault();
-                        // Apply Color to ...
+                      
                         // Toggle the visibility of the color picker dialog
                         setShowColorPicker(false);
                     }

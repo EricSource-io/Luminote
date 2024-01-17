@@ -1,7 +1,8 @@
 .note-page {
     width: 100%;
     height: 100%;
-    background-color: var(--notepage-background);
+    background-color: var(--background-primary);
+    color: var(--text-normal);
     overflow-y: scroll;
     overflow-x: hidden;
 }

@@ -10,15 +10,16 @@
 }
 
 .content {
-    flex: 1
+    flex: 1;
 }
 
 
 .sidebar {
     display: flex;
-    background-color: var(--sidebar-background);
+    background-color: var(--background-secondary);
+    color: var(--text-normal);
     box-sizing: border-box;
-    box-shadow: var(--box-shadow);
+    border-right: 1px solid var(--dark1);
 }
 
 .sidebar-actions {
@@ -26,18 +27,20 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    border-right: #0001 solid 1px;
     justify-content: space-between;
     z-index: 2;
+    border-right: 1px solid var(--dark1);
 }
 
 .sidebar-actions .action-buttons>* {
     padding: 12px 16px;
+    color: var(--text-muted);
 }
 
 .sidebar-actions .action-buttons {
     display: flex;
     flex-direction: column;
+    color: var(--text-faint);
 }
 
 .sidebar-actions .action-buttons * {
@@ -49,11 +52,12 @@
 
 .sidebar-actions .action-buttons>*:hover {
     background-color: var(--sidebar-note-selected-color);
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .sidebar-actions .action-buttons .selected {
-    border-left: var(--primary-color) solid 3px;
+    border-left: var(--primary) solid 3px;
+    color: var(--primary);
 }
 
 .sidebar-content {
@@ -64,16 +68,18 @@
 }
 
 .sidebar-header {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .sidebar-header>.title {
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 400;
     margin-bottom: 10px;
 }
 
 .sidebar-header>.info {
     font-size: 14px;
+    color: var(--text-faint)
 }
 
 .sidebar-header>.action-buttons {
@@ -81,6 +87,7 @@
     justify-content: space-between;
     margin-top: 15px;
     cursor: pointer;
+    color: var(--text-faint);
 }
 
 .sidebar-header>.action-buttons *:hover {
@@ -94,12 +101,9 @@
 }
 
 
-.sidebar-note-explorer {
-    padding-top: 5px;
-}
-
 .sidebar-note-explorer .folder {
     position: relative;
+    color: var(--text-faint);
 }
 
 .sidebar-note-explorer .folder-vertical-line::before {
@@ -107,33 +111,35 @@
     position: absolute;
     top: 16px;
     left: 5px;
-    width: .5px;
+    width: 1px;
     height: calc(100% - 16px);
-    background-color: #0001;
+    background-color: var(--dark1);
     transition: ease 0.2s;
 }
 
 .sidebar-note-explorer .folder-vertical-line:hover::before {
-    background-color: rgba(0, 0, 0, 0.300);
+    background-color: var(--dark2);
 }
 
 .sidebar-note-explorer .folder>.folder-header {
     display: flex;
     cursor: pointer;
     margin: 10px 0;
+    color: var(--text-faint);
 }
 
 .sidebar-note-explorer .folder .note,
-.sidebar-note-explorer > .notes .note {
+.sidebar-note-explorer>.notes .note {
     display: flex;
     margin-left: 20px;
     padding: 4px;
 }
 
-.sidebar-note-explorer .note-selected
-{
-    background-color: var(--sidebar-note-selected-color);
+.sidebar-note-explorer .note-selected {
+    background-color: var(--background-primary);
+    color: var(--text-normal);
     border-radius: 4px;
+
 }
 
 .sidebar-note-explorer .note-title {

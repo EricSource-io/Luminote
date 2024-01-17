@@ -1,12 +1,28 @@
+.content {
+    background-color: var(--background-primary);
+}
+
 .home {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 80vh;
     flex-direction: column;
+    color: var(--text-faint);
 }
 
 .title {
     margin-bottom: 50px;
     font-size: 40px;
+    font-weight: 400;
+   
+}
+
+.home  a{
+    font-size: 18px;
+    color: var(--text-a);
+}
+
+.home  a:hover{
+    color: var(--text-a-hover);
 }
