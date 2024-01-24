@@ -169,7 +169,7 @@ function Sidebar ({ isOpen }) {
     const { folderCount, noteCount } = notebook ? countFolderAndNotes(notebook.folders, notebook.notes) : { folderCount: 0, noteCount: 0 };
 
     return (
-        <div className='sidebar'>
+        <div className={`sidebar ${isOpen ? 'open' : ''}`}>
             <div className='sidebar-actions'>
                 <IconoirProvider
                     iconProps={{

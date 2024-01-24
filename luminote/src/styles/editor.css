@@ -1,0 +1,19 @@
+.editor{
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--background-primary);
+    color: var(--text-normal);
+}
+
+.richt-text-format-bold{
+    font-weight: bold;
+}
+
+.richt-text-format-italic{
+    font-style: italic;
+}
+
+.richt-text-format-underline{
+    text-decoration: underline;
+}
+

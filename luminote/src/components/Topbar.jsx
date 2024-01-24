@@ -74,7 +74,7 @@ function Topbar () {
 
                     const applyColor = (e) => {
                         e.preventDefault();
-                      
+
                         // Toggle the visibility of the color picker dialog
                         setShowColorPicker(false);
                     }
@@ -86,11 +86,11 @@ function Topbar () {
                     }
 
                     const ColorPickerDialog = () => {
-                        const Color = ({ color }) => {
+                        const Color = ({ color, tag }) => {
                             const onClick = (e) => {
                                 e.preventDefault();
                                 setFontColor(color);
-                                dispatch(applyFontColor({ color }));
+                                dispatch(applyFontColor({ color: tag }));
                                 // Toggle the visibility of the color picker dialog
                                 setShowColorPicker(!showColorPicker);
                             }
@@ -106,16 +106,16 @@ function Topbar () {
                                 <div className='theme-colors'>
                                     <p>Theme Colors</p>
                                     <div className='color-container'>
-                                        <Color color='darkred' />
-                                        <Color color='red' />
-                                        <Color color='orange' />
-                                        <Color color='yellow' />
-                                        <Color color='lightgreen' />
-                                        <Color color='green' />
-                                        <Color color='lightblue' />
-                                        <Color color='blue' />
-                                        <Color color='darkblue' />
-                                        <Color color='darkviolet' />
+                                        <Color color='darkred' tag='FONT_COLOR_DARKRED' />
+                                        <Color color='red' tag='FONT_COLOR_RED' />
+                                        <Color color='orange' tag='FONT_COLOR_ORANGE' />
+                                        <Color color='yellow' tag='FONT_COLOR_YELLOW' />
+                                        <Color color='lightgreen' tag='FONT_COLOR_LIGHTGREEN' />
+                                        <Color color='green' tag='FONT_COLOR_GREEN' />
+                                        <Color color='lightblue' tag='FONT_COLOR_LIGHTBLUE' />
+                                        <Color color='blue' tag='FONT_COLOR_BLUE' />
+                                        <Color color='darkblue' tag='FONT_COLOR_DARKBLUE' />
+                                        <Color color='darkviolet' tag='FONT_COLOR_DARKVIOLET' />
                                     </div>
                                 </div>
                                 <div className='standard-colors'>

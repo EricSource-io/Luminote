@@ -51,24 +51,71 @@ function Canvas () {
     if (styleToUpdate) handleEditorChange(RichUtils.toggleInlineStyle(editorState, styleToUpdate));
   }, [fontStylesState.applyLastStyle]);
 
-  const HIGHLIGHT = 'HIGHLIGHT';
-  const [styleMap, setStyleMap] = useState({
-    [HIGHLIGHT]: { color: '#03ff22' },
-  });
+
+  const styleMap = {
+    'BOLD': {
+      fontWeight: 'bold',
+    },
+    'ITALIC': {
+      fontStyle: 'italic',
+    },
+    'UNDERLINE': {
+      textDecoration: 'underline',
+    },
+    'STRIKETHROUGH': {
+      textDecoration: 'line-through',
+    },
+    'CODE': {
+      fontFamily: 'monospace',
+      backgroundColor: '#f0f0f0',
+      padding: '2px 4px',
+      borderRadius: '4px',
+    },
+    'FONT_COLOR_RED': {
+      color: 'red',
+    },
+    'FONT_COLOR_DARKRED': {
+      color: 'darkred',
+    },
+    'FONT_COLOR_ORANGE': {
+      color: 'orange',
+    },
+    'FONT_COLOR_YELLOW': {
+      color: 'yellow',
+    },
+    'FONT_COLOR_LIGHTGREEN': {
+      color: 'lightgreen',
+    },
+    'FONT_COLOR_GREEN': {
+      color: 'green',
+    },
+    'FONT_COLOR_LIGHTBLUE': {
+      color: 'lightblue',
+    },
+    'FONT_COLOR_BLUE': {
+      color: 'blue',
+    },
+    'FONT_COLOR_DARKBLUE': {
+      color: 'darkblue',
+    },
+    'FONT_COLOR_DARKVIOLET': {
+      color: 'darkviolet',
+    },
+    // Add more styles as needed
+  };
 
   useEffect(() => {
+
     // Apply font color
-    const color = fontStylesState.fontColor;
+    const colorTag = fontStylesState.fontColor;
+    const contentState = editorState.getCurrentContent();
+    const selection = editorState.getSelection();
+    const newContentState = Modifier.applyInlineStyle(contentState, selection, colorTag);
+  
+    const newEditorState = EditorState.push(editorState, newContentState, 'change-inline-style');
+    setEditorState(newEditorState);
 
-    setStyleMap({
-      ...styleMap,
-      [HIGHLIGHT]: { color: color },
-    });
-
-    const newState = RichUtils.toggleInlineStyle(editorState, HIGHLIGHT);
-    setEditorState(newState);
   }, [fontStylesState.fontColor]);
-
 
 
   // Set initial editor content from HTML

@@ -9,8 +9,6 @@ function Layout ({ children }) {
     const location = useLocation();
     const isOpen = location.pathname !== '/';
     
-
-
     return (
         <div className='app-container'>
                 <Topbar applyStyleRef={children.props.applyStyleRef}/>

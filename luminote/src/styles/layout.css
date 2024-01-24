@@ -19,6 +19,9 @@
     background-color: var(--background-secondary);
     color: var(--text-normal);
     box-sizing: border-box;
+}
+
+.sidebar.open{
     border-right: 1px solid var(--dark1);
 }
 
