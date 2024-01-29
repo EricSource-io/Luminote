@@ -140,9 +140,8 @@
 
 .sidebar-note-explorer .note-selected {
     background-color: var(--background-primary);
-    color: var(--text-normal);
+    color:  var(--primary);
     border-radius: 4px;
-
 }
 
 .sidebar-note-explorer .note-title {

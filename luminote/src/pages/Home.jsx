@@ -24,7 +24,7 @@ function Home () {
                 <ul>
                     <li>
                         <Link to={`/notebook/${notebook.id}`}>{notebook.name}</Link>
-                    </li>
+                    </li> 
                 </ul>
             </div>
         </Layout>

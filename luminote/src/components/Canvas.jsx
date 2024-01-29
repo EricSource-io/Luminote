@@ -4,8 +4,8 @@ import { Editor, EditorState, Modifier, RichUtils } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
-import { applyFontStyle, toggleFontStyle } from '../redux/reducers/fontStylesReducers';
-
+import { applyFontColor, applyFontStyle, toggleFontStyle, setFontColor } from '../redux/reducers/fontStylesReducers';
+import { fontStyleMap, fontColors } from '../utils/fontEditingUtils';
 
 function Canvas () {
   // Refs
@@ -22,10 +22,24 @@ function Canvas () {
   // Function to update font styles in the Redux store
   const updateFontStylesInStore = (newEditorState) => {
     const currentStyle = newEditorState.getCurrentInlineStyle();
+
     Object.keys(fontStylesState.styles).forEach((style) => {
       const isActive = currentStyle.has(style.toUpperCase());
       dispatch(toggleFontStyle({ style, value: isActive }));
     });
+
+    let isColorDefault = true;
+    Object.keys(fontColors).forEach((colorKey) => {
+      if (currentStyle.has(colorKey)) {
+        isColorDefault = false;
+        dispatch(setFontColor({ colorKey }));
+        console.log(colorKey)
+        return;
+      }
+    });
+    if (isColorDefault) {
+      dispatch(setFontColor({ colorKey: 'FONT_COLOR_DEFAULT' }));
+    }
   };
 
   // Function to handle changes in the editor content
@@ -49,73 +63,27 @@ function Canvas () {
   useEffect(() => {
     const styleToUpdate = fontStylesState.lastUpdated;
     if (styleToUpdate) handleEditorChange(RichUtils.toggleInlineStyle(editorState, styleToUpdate));
-  }, [fontStylesState.applyLastStyle]);
-
-
-  const styleMap = {
-    'BOLD': {
-      fontWeight: 'bold',
-    },
-    'ITALIC': {
-      fontStyle: 'italic',
-    },
-    'UNDERLINE': {
-      textDecoration: 'underline',
-    },
-    'STRIKETHROUGH': {
-      textDecoration: 'line-through',
-    },
-    'CODE': {
-      fontFamily: 'monospace',
-      backgroundColor: '#f0f0f0',
-      padding: '2px 4px',
-      borderRadius: '4px',
-    },
-    'FONT_COLOR_RED': {
-      color: 'red',
-    },
-    'FONT_COLOR_DARKRED': {
-      color: 'darkred',
-    },
-    'FONT_COLOR_ORANGE': {
-      color: 'orange',
-    },
-    'FONT_COLOR_YELLOW': {
-      color: 'yellow',
-    },
-    'FONT_COLOR_LIGHTGREEN': {
-      color: 'lightgreen',
-    },
-    'FONT_COLOR_GREEN': {
-      color: 'green',
-    },
-    'FONT_COLOR_LIGHTBLUE': {
-      color: 'lightblue',
-    },
-    'FONT_COLOR_BLUE': {
-      color: 'blue',
-    },
-    'FONT_COLOR_DARKBLUE': {
-      color: 'darkblue',
-    },
-    'FONT_COLOR_DARKVIOLET': {
-      color: 'darkviolet',
-    },
-    // Add more styles as needed
-  };
+  }, [fontStylesState.lastStyleTimestamp]);
 
   useEffect(() => {
-
     // Apply font color
-    const colorTag = fontStylesState.fontColor;
+    const colorKey = fontStylesState.fontColor;
     const contentState = editorState.getCurrentContent();
     const selection = editorState.getSelection();
-    const newContentState = Modifier.applyInlineStyle(contentState, selection, colorTag);
-  
-    const newEditorState = EditorState.push(editorState, newContentState, 'change-inline-style');
-    setEditorState(newEditorState);
 
-  }, [fontStylesState.fontColor]);
+
+    if (selection.isCollapsed()) {
+      // If no text is selected
+
+
+    } else {
+      // If there's a selection, apply the color to the selected text
+      const newContentState = Modifier.applyInlineStyle(contentState, selection, colorKey);
+      const newEditorState = EditorState.push(editorState, newContentState, 'change-inline-style');
+      setEditorState(newEditorState);
+    }
+
+  }, [fontStylesState.lastColorTimestamp]);
 
 
   // Set initial editor content from HTML
@@ -125,9 +93,6 @@ function Canvas () {
     setEditorState(EditorState.createWithContent(contentState));
   }, []);
 
-
- 
-
   return (
     <div className='canvas' ref={canvasRef} >
       <Editor
@@ -135,7 +100,7 @@ function Canvas () {
         editorState={editorState}
         handleKeyCommand={handleKeyCommand}
         onChange={handleEditorChange}
-        customStyleMap={styleMap}
+        customStyleMap={fontStyleMap}
       />
     </div>
   );

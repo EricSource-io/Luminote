@@ -4,19 +4,9 @@ import {
 } from 'iconoir-react';
 import FontSelector from './FontSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleFontStyle, applyFontStyle, applyFontColor } from '../redux/reducers/fontStylesReducers';
+import { toggleFontStyle, applyFontStyle, applyFontColor, setFontColor } from '../redux/reducers/fontStylesReducers';
+import { fontStyleMap, defaultFontColors } from '../utils/fontEditingUtils';
 import "../styles/topbar.css";
-
-const COLORS = [
-    "#ffffff", "#f9f9f9", "#f2f2f2", "#e5e5e5", "#d9d9d9",
-    "#cccccc", "#bfbfbf", "#b3b3b3", "#a6a6a6", "#999999",
-    "#8c8c8c", "#808080", "#737373", "#666666", "#595959",
-    "#4d4d4d", "#404040", "#333333", "#262626", "#1a1a1a",
-    "#0d0d0d", "#000000", "#ffebcd", "#ffdab9", "#ffc0cb",
-    "#ffa07a", "#ff8c00", "#ff7f50", "#ff6347", "#ff4500",
-    "#ff0000", "#dc143c", "#b22222", "#8b0000", "#800000",
-    "#8b4513", "#a52a2a", "#d2691e", "#cd853f", "#a0522d"
-];
 
 function Topbar () {
 
@@ -28,7 +18,7 @@ function Topbar () {
     const [boldActive, setBoldActive] = useState(false);
     const [italicActive, setItalicActive] = useState(false);
     const [underlineActive, setUnderlineActive] = useState(false);
-    const [fontColor, setFontColor] = useState('#000000');
+    const [fontColorState, setFontColorState] = useState('#000000');
 
     // State to track the active tab
     const [activeTab, setActiveTab] = useState('home');
@@ -38,8 +28,11 @@ function Topbar () {
         setBoldActive(fontStylesState.styles.bold);
         setItalicActive(fontStylesState.styles.italic);
         setUnderlineActive(fontStylesState.styles.underline);
-        setFontColor(fontStylesState.fontColor);
     }, [fontStylesState.styles]);
+
+    useEffect(() => {
+        setFontColorState(fontStyleMap[fontStylesState.fontColor].color);
+    }, [fontStylesState.fontColor]);
 
     // Function to handle tab change
     const handleTabChange = (tab) => {
@@ -86,11 +79,13 @@ function Topbar () {
                     }
 
                     const ColorPickerDialog = () => {
-                        const Color = ({ color, tag }) => {
+                        const Color = ({ colorKey }) => {
+                            const color = fontStyleMap[colorKey].color;
                             const onClick = (e) => {
                                 e.preventDefault();
-                                setFontColor(color);
-                                dispatch(applyFontColor({ color: tag }));
+                                setFontColorState(color);
+                                dispatch(setFontColor({ colorKey }));
+                                dispatch(applyFontColor());
                                 // Toggle the visibility of the color picker dialog
                                 setShowColorPicker(!showColorPicker);
                             }
@@ -106,24 +101,15 @@ function Topbar () {
                                 <div className='theme-colors'>
                                     <p>Theme Colors</p>
                                     <div className='color-container'>
-                                        <Color color='darkred' tag='FONT_COLOR_DARKRED' />
-                                        <Color color='red' tag='FONT_COLOR_RED' />
-                                        <Color color='orange' tag='FONT_COLOR_ORANGE' />
-                                        <Color color='yellow' tag='FONT_COLOR_YELLOW' />
-                                        <Color color='lightgreen' tag='FONT_COLOR_LIGHTGREEN' />
-                                        <Color color='green' tag='FONT_COLOR_GREEN' />
-                                        <Color color='lightblue' tag='FONT_COLOR_LIGHTBLUE' />
-                                        <Color color='blue' tag='FONT_COLOR_BLUE' />
-                                        <Color color='darkblue' tag='FONT_COLOR_DARKBLUE' />
-                                        <Color color='darkviolet' tag='FONT_COLOR_DARKVIOLET' />
+                                        {defaultFontColors.map((key, index) => (
+                                            <Color key={index} colorKey={key} />
+                                        ))}
                                     </div>
                                 </div>
                                 <div className='standard-colors'>
                                     <p>Standard Colors</p>
                                     <div className='color-container'>
-                                        {COLORS.map((color, index) => (
-                                            <Color key={index} color={color} />
-                                        ))}
+
                                     </div>
                                 </div>
                                 <div className='more-colors'>
@@ -169,7 +155,7 @@ function Topbar () {
                                     <StyleButton icon={<Bold strokeWidth={2} />} style='bold' activeState={boldActive} />
                                     <StyleButton icon={<Italic />} style='italic' activeState={italicActive} />
                                     <StyleButton icon={<Underline />} style='underline' activeState={underlineActive} />
-                                    <FontColorButton colorState={fontColor} />
+                                    <FontColorButton colorState={fontColorState} />
                                 </IconoirProvider>
                             </div>
                         </div>

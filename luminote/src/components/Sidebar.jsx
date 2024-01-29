@@ -5,7 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import {
     IconoirProvider, MultiplePagesEmpty, CloudSync, ShareAndroid,
     UserCircle, GithubCircle, Settings,
-    NavArrowRight, NavArrowDown, Page,
+    NavArrowRight, NavArrowDown,
     AddFolder, SortDown, ArrowUnionVertical, PageEdit
 } from 'iconoir-react';
 import { getNotebookDataById, getNoteById } from '../utils/database';
