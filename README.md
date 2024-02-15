@@ -20,6 +20,9 @@ Check out this preview of what Luminote looks like now:
 ![Luminote preview](https://github.com/EricSource-io/Luminote/blob/main/preview.png)
 It's not super fancy yet, but we'll get there.
 
+## Future Plans
+My primary objective is to launch a native desktop version developed with C++, optimizing it for efficient use with a stylus. However, this step will be taken once the web-based Luminote prototype is fully developed. :P
+
 ## Installation
 Hang tight! Luminote, my solo dev adventure, is not ready to mingle with your desktop yet. 
 
