@@ -34,5 +34,7 @@ I'm working to make sure it runs smoothly.
 Luminote followss the [MIT License](https://github.com/EricSource2002/Luminote/blob/4ccc33e4420906f0abc4a5376e7a370b155c9252/LICENSE). Feel free to thinker around with it, tweak things, and share it with your buddies.
 Contributions? Absolutely! Check out the [contributing guidelines](https://github.com/EricSource-io/Luminote/blob/main/CONTRIBUTING.md) if you're up for it.
 
+If you wish to stay connected with fellow contributors and myself, feel free to join our Discord community at https://discord.gg/xdyATsWr. We look forward to having you there! :)
+
 **🚀 Stay tuned for updates as Luminote evolves! 🚀**
 
